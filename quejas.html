@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastelitos S.A. — Tu Opinión Nos Impulsa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #2c2c2c;
+            background: linear-gradient(135deg, #f5f7fa 0%, #efe5ff 25%, #e9ecf1 50%, #ffeef5 75%, #f0e6ff 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        /* ── Header ── */
+        header {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8C61 25%, #D4591D 50%, #8B5CF6 75%, #6366F1 100%);
+            color: white;
+            padding: 16px 0;
+            box-shadow: 0 8px 32px rgba(255,107,53,0.25);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-inner {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .header-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            flex-shrink: 0;
+        }
+        .header-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .header-title { font-size: 18px; font-weight: 800; }
+        .header-sub { font-size: 12px; opacity: 0.85; }
+        .header-back {
+            margin-left: auto;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+        .header-back:hover { background: rgba(255,255,255,0.35); }
+
+        /* ── Hero ── */
+        .hero {
+            text-align: center;
+            padding: 60px 24px 40px;
+            max-width: 700px;
+            margin: 0 auto;
+            animation: fadeInUp 0.7s ease-out both;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #FF6B35, #D4591D);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 24px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 20px rgba(255,107,53,0.35);
+        }
+        .hero h1 {
+            font-size: clamp(28px, 5vw, 44px);
+            font-weight: 900;
+            background: linear-gradient(135deg, #FF6B35, #8B5CF6, #06B6D4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            margin-bottom: 14px;
+        }
+        .hero p {
+            font-size: 16px;
+            color: #666;
+            max-width: 480px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ── Stars rating ── */
+        .stars-wrap {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 28px 0 10px;
+        }
+        .star-btn {
+            font-size: 36px;
+            cursor: pointer;
+            color: #ddd;
+            transition: color 0.15s, transform 0.15s;
+            background: none;
+            border: none;
+            line-height: 1;
+            padding: 2px;
+        }
+        .star-btn.lit,
+        .star-btn.preview { color: #FF6B35; }
+        .star-btn.lit { text-shadow: 0 2px 8px rgba(255,107,53,0.4); }
+        .star-btn:hover { transform: scale(1.2); }
+        .stars-label {
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: #FF6B35;
+            min-height: 20px;
+            transition: opacity 0.2s;
+        }
+
+        /* ── Form card ── */
+        .form-card {
+            background: white;
+            border-radius: 24px;
+            padding: 36px 32px;
+            max-width: 700px;
+            margin: 0 auto 60px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            border: 1px solid rgba(255,107,53,0.08);
+            animation: fadeInUp 0.7s ease-out 0.1s both;
+        }
+
+        /* ── Fields ── */
+        .field-group { margin-bottom: 22px; }
+        .field-group label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #444;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 9px;
+        }
+        .field-group label i { color: #FF6B35; width: 16px; }
+        .field-group input,
+        .field-group textarea {
+            width: 100%;
+            border: 2px solid #e8e8e8;
+            border-radius: 14px;
+            padding: 13px 18px;
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: #fafafa;
+            resize: none;
+        }
+        .field-group input:focus,
+        .field-group textarea:focus {
+            outline: none;
+            border-color: #FF6B35;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(255,107,53,0.1);
+        }
+        .field-group input.has-err,
+        .field-group textarea.has-err { border-color: #ef4444; }
+        .field-hint { font-size: 11px; color: #bbb; margin-top: 5px; }
+        .field-err { font-size: 11px; color: #ef4444; margin-top: 5px; display: none; }
+
+        /* ── Category chips ── */
+        .cat-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .cat-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid #e0e0e0;
+            background: white;
+            color: #666;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+        .cat-chip:hover { border-color: #FF6B35; color: #FF6B35; }
+        .cat-chip.active {
+            background: linear-gradient(135deg, #FF6B35, #D4591D);
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 3px 10px rgba(255,107,53,0.35);
+        }
+
+        /* ── Divider ── */
+        .divider {
+            border: none;
+            border-top: 1px solid #f0f0f0;
+            margin: 28px 0;
+        }
+
+        /* ── Submit button ── */
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #FF6B35, #D4591D);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255,107,53,0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(255,107,53,0.45); }
+        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .submit-note {
+            text-align: center;
+            font-size: 11px;
+            color: #bbb;
+            margin-top: 12px;
+        }
+        .submit-note i { color: #FF6B35; }
+
+        /* ── Gracias modal ── */
+        .thank-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            backdrop-filter: blur(6px);
+            z-index: 600;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .thank-overlay.open { display: flex; }
+        .thank-box {
+            background: white;
+            border-radius: 28px;
+            padding: 52px 44px;
+            width: 100%;
+            max-width: 520px;
+            text-align: center;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.22);
+            animation: bounceIn 0.55s cubic-bezier(0.34,1.56,0.64,1) both;
+        }
+        .thank-icon {
+            font-size: 76px;
+            margin-bottom: 18px;
+            display: block;
+        }
+        .thank-confetti {
+            font-size: 28px;
+            letter-spacing: 8px;
+            margin-bottom: 14px;
+            display: block;
+        }
+        .thank-title {
+            font-size: clamp(24px, 5vw, 32px);
+            font-weight: 900;
+            background: linear-gradient(135deg, #FF6B35, #8B5CF6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+        .thank-stars {
+            font-size: 28px;
+            color: #FF6B35;
+            letter-spacing: 4px;
+            margin-bottom: 14px;
+        }
+        .thank-msg {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.75;
+            margin-bottom: 32px;
+        }
+        .thank-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            background: linear-gradient(135deg, #FF6B35, #D4591D);
+            color: white;
+            text-decoration: none;
+            padding: 16px 36px;
+            border-radius: 16px;
+            font-weight: 800;
+            font-size: 15px;
+            box-shadow: 0 8px 24px rgba(255,107,53,0.4);
+            transition: all 0.22s;
+        }
+        .thank-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(255,107,53,0.5); }
+        /* Mobile: bottom sheet */
+        @media (max-width: 600px) {
+            .thank-overlay { align-items: flex-end; padding: 0; }
+            .thank-box {
+                border-radius: 28px 28px 0 0;
+                padding: 40px 28px max(28px, env(safe-area-inset-bottom));
+                max-width: 100%;
+                animation: sheetUp 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+            }
+        }
+        @keyframes sheetUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to   { transform: translateY(0);    opacity: 1; }
+        }
+
+        /* ── Animations ── */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(28px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bounceIn {
+            0%   { opacity: 0; transform: scale(0.3); }
+            50%  { transform: scale(1.15); }
+            70%  { transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 768px) {
+            .form-card { border-radius: 20px; padding: 24px 20px; margin: 0 12px 40px; }
+            .hero { padding: 40px 20px 28px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-inner">
+            <div class="header-logo"><img src="logo.jpg" alt="Pastelitos S.A."></div>
+            <div>
+                <div class="header-title">Pastelitos S.A.</div>
+                <div class="header-sub">Tu opinión nos hace mejores</div>
+            </div>
+            <a class="header-back" href="tienda.html"><i class="fas fa-arrow-left"></i> Tienda</a>
+        </div>
+    </header>
+
+    <div class="hero">
+        <div class="hero-badge"><i class="fas fa-seedling"></i> ESPACIO DE MEJORA CONTINUA</div>
+        <h1>Tu experiencia importa más que cualquier receta</h1>
+        <p>Cada opinión que compartes nos ayuda a hornear algo mejor. Sin filtros, sin miedo — queremos escucharte de verdad.</p>
+
+        <!-- Estrellas -->
+        <div class="stars-wrap" role="group" aria-label="Calificación de experiencia">
+            <button class="star-btn" onclick="setStar(1)" onmouseover="previewStar(1)" onmouseout="clearPreview()" aria-label="1 estrella">★</button>
+            <button class="star-btn" onclick="setStar(2)" onmouseover="previewStar(2)" onmouseout="clearPreview()" aria-label="2 estrellas">★</button>
+            <button class="star-btn" onclick="setStar(3)" onmouseover="previewStar(3)" onmouseout="clearPreview()" aria-label="3 estrellas">★</button>
+            <button class="star-btn" onclick="setStar(4)" onmouseover="previewStar(4)" onmouseout="clearPreview()" aria-label="4 estrellas">★</button>
+            <button class="star-btn" onclick="setStar(5)" onmouseover="previewStar(5)" onmouseout="clearPreview()" aria-label="5 estrellas">★</button>
+        </div>
+        <div class="stars-label" id="stars-label">Toca para calificar tu experiencia</div>
+    </div>
+
+    <div class="form-card" id="form-card">
+        <form id="feedback-form" onsubmit="return false;">
+
+            <!-- Nombre -->
+            <div class="field-group">
+                <label><i class="fas fa-user"></i> Tu nombre <span style="font-weight:400;color:#bbb">(opcional)</span></label>
+                <input type="text" id="f-nombre" placeholder="¿Cómo te llamamos?" autocomplete="given-name" maxlength="80">
+            </div>
+
+            <!-- Área / Categoría -->
+            <div class="field-group">
+                <label><i class="fas fa-tag"></i> ¿Qué área quieres destacar?</label>
+                <div class="cat-chips" id="cat-chips">
+                    <span class="cat-chip" onclick="toggleCat(this)"><i class="fas fa-cookie-bite"></i> Sabor del producto</span>
+                    <span class="cat-chip" onclick="toggleCat(this)"><i class="fas fa-truck"></i> Tiempo de entrega</span>
+                    <span class="cat-chip" onclick="toggleCat(this)"><i class="fas fa-face-smile"></i> Atención al cliente</span>
+                    <span class="cat-chip" onclick="toggleCat(this)"><i class="fas fa-box"></i> Empaque</span>
+                    <span class="cat-chip" onclick="toggleCat(this)"><i class="fas fa-tag"></i> Precio y valor</span>
+                    <span class="cat-chip" onclick="toggleCat(this)"><i class="fas fa-star"></i> Presentación</span>
+                    <span class="cat-chip" onclick="toggleCat(this)"><i class="fas fa-store"></i> Experiencia en tienda</span>
+                    <span class="cat-chip" onclick="toggleCat(this)"><i class="fas fa-globe"></i> Experiencia en línea</span>
+                    <span class="cat-chip" onclick="toggleCat(this)"><i class="fas fa-ellipsis"></i> Otro</span>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Lo que estuvo bien -->
+            <div class="field-group">
+                <label><i class="fas fa-thumbs-up"></i> ¿Qué te gustó?</label>
+                <textarea id="f-positivo" rows="3" placeholder="Cuéntanos qué estuvo genial. Cualquier detalle es valioso para nuestro equipo ✨" maxlength="500"></textarea>
+                <div class="field-hint">Máximo 500 caracteres</div>
+            </div>
+
+            <!-- Oportunidad de mejora -->
+            <div class="field-group">
+                <label><i class="fas fa-lightbulb"></i> ¿Qué podríamos mejorar?</label>
+                <textarea id="f-mejora" rows="4" placeholder="Aquí no hay respuestas malas. Si algo no estuvo perfecto, dinos cómo hacerlo mejor 🙌" maxlength="1000"></textarea>
+                <div class="field-err" id="err-mejora">Por favor cuéntanos algo — ¡tu opinión es lo más importante!</div>
+                <div class="field-hint">Máximo 1000 caracteres</div>
+            </div>
+
+            <!-- Sugerencia libre -->
+            <div class="field-group">
+                <label><i class="fas fa-wand-magic-sparkles"></i> ¿Algo más que quieras decirnos? <span style="font-weight:400;color:#bbb">(opcional)</span></label>
+                <textarea id="f-extra" rows="2" placeholder="Ideas, sugerencias de nuevos productos, lo que sientas…" maxlength="500"></textarea>
+            </div>
+
+            <hr class="divider">
+
+            <button class="submit-btn" id="submit-btn" type="button" onclick="sendFeedback()">
+                <i class="fas fa-paper-plane"></i> Enviar mi opinión
+            </button>
+            <div class="submit-note">
+                <i class="fas fa-lock"></i> Tu feedback es confidencial y llega directamente a nuestro equipo.
+            </div>
+        </form>
+
+    </div>
+
+    <!-- Modal de agradecimiento -->
+    <div class="thank-overlay" id="thank-overlay">
+        <div class="thank-box">
+            <span class="thank-icon">🧡</span>
+            <span class="thank-confetti" id="thank-confetti"></span>
+            <div class="thank-title">¡Gracias de corazón!</div>
+            <div class="thank-stars" id="thank-stars"></div>
+            <div class="thank-msg">Tu opinión ya está con nuestro equipo. Cada mensaje nos motiva a seguir mejorando para ti y para todos quienes nos eligen.</div>
+            <a class="thank-btn" href="tienda.html"><i class="fas fa-store"></i> Volver a la tienda</a>
+        </div>
+    </div>
+
+    <script>
+        let selectedStars = 0;
+        const starLabels = ['', 'Muy mala experiencia 😔', 'Podría mejorar 😕', 'Regular, tuvo sus cosas 😐', 'Buena experiencia 😊', '¡Excelente, me encantó! 🤩'];
+
+        function setStar(n) {
+            selectedStars = n;
+            document.querySelectorAll('.star-btn').forEach((btn, i) => {
+                btn.classList.toggle('lit', i < n);
+                btn.classList.remove('preview');
+            });
+            document.getElementById('stars-label').textContent = starLabels[n];
+        }
+
+        function previewStar(n) {
+            document.querySelectorAll('.star-btn').forEach((btn, i) => {
+                btn.classList.toggle('preview', i < n);
+            });
+            document.getElementById('stars-label').textContent = starLabels[n];
+        }
+
+        function clearPreview() {
+            document.querySelectorAll('.star-btn').forEach(btn => btn.classList.remove('preview'));
+            document.getElementById('stars-label').textContent = selectedStars > 0 ? starLabels[selectedStars] : 'Toca para calificar tu experiencia';
+        }
+
+        function toggleCat(el) {
+            el.classList.toggle('active');
+        }
+
+        function getSelectedCats() {
+            return [...document.querySelectorAll('.cat-chip.active')].map(c => c.textContent.trim()).join(', ');
+        }
+
+        function buildCaption() {
+            const nombre = document.getElementById('f-nombre').value.trim();
+            const positivo = document.getElementById('f-positivo').value.trim();
+            const mejora = document.getElementById('f-mejora').value.trim();
+            const extra = document.getElementById('f-extra').value.trim();
+            const cats = getSelectedCats();
+
+            const lines = [];
+            lines.push('🌱 *Nueva oportunidad de mejora — Pastelitos S.A.*\n');
+
+            if (nombre) lines.push(`👤 *De:* ${nombre}`);
+            if (selectedStars > 0) lines.push(`⭐ *Calificación:* ${'★'.repeat(selectedStars)}${'☆'.repeat(5 - selectedStars)} (${selectedStars}/5 — ${starLabels[selectedStars]})`);
+            if (cats) lines.push(`🏷 *Áreas destacadas:* ${cats}`);
+
+            lines.push('');
+            if (positivo) {
+                lines.push('✅ *Lo que estuvo bien:*');
+                lines.push(positivo);
+                lines.push('');
+            }
+            if (mejora) {
+                lines.push('💡 *Oportunidad de mejora:*');
+                lines.push(mejora);
+                lines.push('');
+            }
+            if (extra) {
+                lines.push('💬 *Comentario adicional:*');
+                lines.push(extra);
+                lines.push('');
+            }
+            lines.push('─────────────────────');
+            lines.push(`📅 Recibido: ${new Date().toLocaleString('es-EC', {timeZone: 'America/Guayaquil', dateStyle: 'full', timeStyle: 'short'})}`);
+
+            return lines.join('\n');
+        }
+
+        async function sendFeedback() {
+            const mejora = document.getElementById('f-mejora').value.trim();
+            const positivo = document.getElementById('f-positivo').value.trim();
+
+            if (!mejora && !positivo) {
+                document.getElementById('err-mejora').style.display = 'block';
+                document.getElementById('f-mejora').classList.add('has-err');
+                document.getElementById('f-mejora').focus();
+                return;
+            }
+            document.getElementById('err-mejora').style.display = 'none';
+            document.getElementById('f-mejora').classList.remove('has-err');
+
+            const btn = document.getElementById('submit-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+
+            try {
+                await fetch('https://lpn8nwebhook.luispintasolutions.com/webhook/envio_de_imagenes_sin_respuesta_pastelitos', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        whatsapp: '+593962248046',
+                        url: 'https://lpsupabase.luispintasolutions.com/storage/v1/object/public/luispintapersonal/mi_espacio/Mejora.png',
+                        caption: buildCaption()
+                    })
+                });
+            } catch (_) {
+                // Silencioso
+            }
+
+            // Mostrar modal de agradecimiento
+            const starsHtml = selectedStars > 0
+                ? '★'.repeat(selectedStars) + '<span style="color:#ddd">' + '★'.repeat(5 - selectedStars) + '</span>'
+                : '';
+            document.getElementById('thank-stars').innerHTML = starsHtml;
+            document.getElementById('thank-confetti').textContent = selectedStars >= 4 ? '🎉 🎊 🎈' : selectedStars > 0 ? '💪 🌱' : '';
+            document.getElementById('thank-overlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+    </script>
+</body>
+</html>

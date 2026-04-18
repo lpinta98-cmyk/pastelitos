@@ -1,0 +1,2971 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastelitos S.A. - Tienda Premium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #2c2c2c;
+            background: linear-gradient(135deg, #f5f7fa 0%, #efe5ff 25%, #e9ecf1 50%, #ffeef5 75%, #f0e6ff 100%);
+            background-attachment: fixed;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8C61 25%, #D4591D 50%, #8B5CF6 75%, #6366F1 100%);
+            color: white;
+            padding: 18px 0;
+            box-shadow: 0 8px 32px rgba(255, 107, 53, 0.25);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            animation: slideInLeft 0.6s ease-out;
+        }
+        
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(8px);
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-img:hover {
+            transform: translateY(-3px) scale(1.05);
+        }
+        
+        .logo-text {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        
+        nav {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.7);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        .nav-opinion-link {
+            background: rgba(255,255,255,0.18);
+            border: 1.5px solid rgba(255,255,255,0.4);
+            border-radius: 20px;
+            padding: 5px 14px !important;
+            font-size: 13px !important;
+            transition: background 0.2s, transform 0.2s !important;
+        }
+        .nav-opinion-link:hover { background: rgba(255,255,255,0.32) !important; transform: translateY(-1px); }
+        .nav-opinion-link::after { display: none !important; }
+        .mobile-opinion-link {
+            background: rgba(255,255,255,0.1);
+            border-top: 1px solid rgba(255,255,255,0.2) !important;
+            padding: 18px 24px !important;
+        }
+        .mobile-opinion-link:hover { background: rgba(255,255,255,0.18) !important; }
+
+        /* Font Awesome Icons */
+        i {
+            margin-right: 6px;
+            font-size: 16px;
+        }
+
+        .cart-button i {
+            font-size: 20px;
+            margin-right: 8px;
+        }
+
+        h2 i,
+        h3 i {
+            margin-right: 8px;
+            font-size: 1.1em;
+        }
+
+        strong i {
+            margin-right: 6px;
+        }
+
+        .customize-badge i {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+
+        .customize-btn i {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+
+        .cart-close {
+            background: none;
+            border: none;
+            color: #FF6B35;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px 10px;
+            transition: all 0.2s ease;
+        }
+
+        .cart-close:hover {
+            transform: scale(1.2);
+        }
+
+        /* Animación de pastel flotante */
+        .floating-cake {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            font-size: 60px;
+            animation: cakeFloat 1.5s ease-in-out forwards;
+        }
+
+        @keyframes cakeFloat {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1) rotateZ(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(20px, -100px) scale(1.1) rotateZ(15deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50px, -250px) scale(0.3) rotateZ(-30deg);
+            }
+        }
+
+        /* Modal de confirmación personalizada */
+        .success-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: white;
+            border-radius: 28px;
+            padding: 36px 40px;
+            box-shadow: 0 30px 80px rgba(255, 107, 53, 0.3);
+            z-index: 10000;
+            max-width: 820px;
+            width: 92%;
+            animation: modalPop 0.5s ease-out forwards;
+            border: 2px solid #FF6B35;
+            text-align: center;
+            display: none;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        /* Layout horizontal en PC cuando hay panel custom */
+        .success-modal.has-panel {
+            display: none;
+            text-align: left;
+        }
+        .success-modal.has-panel[style*="display: block"] {
+            display: grid !important;
+            grid-template-columns: 260px 1fr;
+            grid-template-rows: auto;
+            gap: 0 28px;
+            align-items: start;
+        }
+        .modal-left-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding-right: 28px;
+            border-right: 1px solid #FFE5CC;
+            position: sticky;
+            top: 0;
+        }
+        .modal-right-col {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        /* Sin panel: layout normal centrado */
+        .success-modal:not(.has-panel)[style*="display: block"] {
+            display: block !important;
+            text-align: center;
+        }
+
+        @keyframes modalPop {
+            0% {
+                transform: translate(-50%, -50%) scale(0) rotateZ(-10deg);
+                opacity: 0;
+            }
+            70% {
+                transform: translate(-50%, -50%) scale(1.05) rotateZ(2deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1) rotateZ(0deg);
+                opacity: 1;
+            }
+        }
+
+        .success-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            animation: fadeIn 0.3s ease-out;
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .success-modal-icon {
+            margin-bottom: 24px;
+            animation: iconSpin 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: #FF6B35;
+        }
+
+        .success-modal-icon i {
+            font-size: 96px;
+            color: #FF6B35;
+            display: block;
+            filter: drop-shadow(0 8px 16px rgba(255, 107, 53, 0.45));
+        }
+
+        @keyframes iconSpin {
+            0%   { transform: scale(0) rotate(-180deg); opacity: 0; }
+            60%  { transform: scale(1.25) rotate(10deg); opacity: 1; }
+            80%  { transform: scale(0.9) rotate(-5deg); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        .success-modal h2 {
+            color: #FF6B35;
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .success-modal p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .success-modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .modal-btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .modal-btn-primary {
+            background: linear-gradient(135deg, #FF6B35, #D4591D);
+            color: white;
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .modal-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+        }
+
+        .modal-btn-secondary {
+            background: #f0f0f0;
+            color: #FF6B35;
+            border: 2px solid #FF6B35;
+        }
+
+        .modal-btn-secondary:hover {
+            background: #FFE5CC;
+            transform: translateY(-2px);
+        }
+
+        .modal-btn-outline {
+            background: transparent;
+            color: #FF6B35;
+            border: 2px solid #FF6B35;
+        }
+
+        .modal-btn-outline:hover {
+            background: #FFE5CC;
+        }
+
+        @media (max-width: 768px) {
+            .success-modal {
+                padding: 40px 25px;
+                max-width: 90%;
+            }
+
+            .success-modal-icon i {
+                font-size: 80px;
+            }
+
+            .success-modal h2 {
+                font-size: 24px;
+            }
+
+            .modal-btn {
+                min-width: 120px;
+                padding: 12px 20px;
+            }
+        }
+        
+        
+        .cart-button {
+            position: relative;
+            font-size: 28px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: white;
+        }
+        
+        .cart-button:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: scale(1.1);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #2c2c2c;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 13px;
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+        }
+        
+        /* Animaciones */
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(20px); }
+        }
+        
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8C61 40%, #D4591D 100%);
+            color: white;
+            padding: 90px 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            animation: fadeInUp 0.8s ease-out;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out 0.2s both;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+        
+        /* About Section */
+        .about-section {
+            background: white;
+            padding: 50px 40px;
+            margin: 60px 0;
+            border-radius: 28px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            position: relative;
+            border: 1px solid rgba(255, 107, 53, 0.1);
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .about-section:hover {
+            box-shadow: 0 25px 70px rgba(255, 107, 53, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .about-section h2 {
+            color: #FF6B35;
+            font-size: 42px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #FF6B35 0%, #D4591D 25%, #8B5CF6 50%, #06B6D4 75%, #10B981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+        
+        .about-section > p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        
+        .quality-badge {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0cc 50%, #ffd4a8 100%);
+            border: 2px solid #FF6B35;
+            padding: 25px;
+            border-radius: 20px;
+            margin: 25px 0;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.15);
+        }
+        
+        .quality-badge strong {
+            color: #FF6B35;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+        
+        .quality-badge p {
+            color: #D4591D;
+            font-weight: 500;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        .about-item {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecf1 100%);
+            padding: 30px;
+            border-radius: 18px;
+            border-left: 5px solid #FF6B35;
+            transition: all 0.3s ease;
+        }
+
+        .about-item:nth-child(1) {
+            border-left-color: #FF6B35;
+        }
+
+        .about-item:nth-child(2) {
+            border-left-color: #8B5CF6;
+        }
+        
+        .about-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.1);
+        }
+        
+        .about-item h3 {
+            color: #FF6B35;
+            margin: 0 0 15px 0;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .about-item p {
+            color: #555;
+            line-height: 1.7;
+        }
+        
+        /* Productos */
+        .products-section {
+            padding: 60px 0;
+        }
+        
+        .products-section h2 {
+            color: #FF6B35;
+            font-size: 44px;
+            margin-bottom: 50px;
+            text-align: center;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FF6B35 0%, #D4591D 25%, #8B5CF6 50%, #6366F1 75%, #06B6D4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            border: 1px solid rgba(255, 107, 53, 0.05);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 30px 80px rgba(255, 107, 53, 0.2);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+        }
+        
+        .product-card:nth-child(1) {
+            border-top: 4px solid #FF6B35;
+        }
+        
+        .product-card:nth-child(2) {
+            border-top: 4px solid #8B5CF6;
+        }
+        
+        .product-card:nth-child(3) {
+            border-top: 4px solid #06B6D4;
+        }
+        
+        .product-card:nth-child(4) {
+            border-top: 4px solid #10B981;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 260px;
+            background: linear-gradient(135deg, #FFE5CC 0%, #FFD4A8 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.08);
+        }
+        
+        .product-info {
+            padding: 25px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .product-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c2c2c;
+            margin-bottom: 8px;
+        }
+        
+        .product-description {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        
+        .product-price {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FF6B35, #D4591D);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 18px;
+        }
+        
+        .product-controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            border: 2px solid #FF6B35;
+            border-radius: 12px;
+            background: rgba(255, 107, 53, 0.05);
+        }
+        
+        .quantity-control button {
+            background: none;
+            border: none;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            font-weight: 700;
+            color: #FF6B35;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+        
+        .quantity-control button:hover {
+            background: rgba(255, 107, 53, 0.1);
+        }
+        
+        .quantity-control span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            border-left: 1px solid #FF6B35;
+            border-right: 1px solid #FF6B35;
+            font-weight: 600;
+        }
+        
+        .add-to-cart {
+            flex: 1;
+            background: linear-gradient(135deg, #FF6B35, #D4591D);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+        
+        .add-to-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+        }
+        
+        /* Personalización */
+        .customize-section {
+            background: linear-gradient(135deg, #fff3e0 0%, #f3e8ff 30%, #ffe0cc 60%, #e0f2fe 100%);
+            padding: 60px;
+            margin: 60px 0;
+            border-radius: 28px;
+            border: 3px solid #FF6B35;
+            box-shadow: 0 20px 70px rgba(255, 107, 53, 0.2);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        
+        .customize-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #FF6B35, #D4591D);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+        
+        .customize-section h2 {
+            background: linear-gradient(135deg, #FF6B35 0%, #8B5CF6 50%, #06B6D4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 40px;
+            margin-bottom: 10px;
+            font-weight: 800;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .customize-section > p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 35px;
+            position: relative;
+            z-index: 1;
+            line-height: 1.6;
+        }
+        
+        .customize-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .customize-option {
+            background: white;
+            padding: 28px;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #FF6B35;
+            transition: all 0.3s ease;
+        }
+        
+        .customize-option:nth-child(1) {
+            border-left-color: #FF6B35;
+        }
+        
+        .customize-option:nth-child(2) {
+            border-left-color: #8B5CF6;
+        }
+        
+        .customize-option:nth-child(3) {
+            border-left-color: #06B6D4;
+        }
+        
+        .customize-option:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(255, 107, 53, 0.15);
+        }
+        
+        .customize-option h3 {
+            color: #FF6B35;
+            margin-bottom: 18px;
+            font-size: 17px;
+            font-weight: 700;
+        }
+        
+        .customize-option label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #555;
+            transition: all 0.2s ease;
+        }
+        
+        .customize-option label:hover {
+            color: #FF6B35;
+        }
+        
+        .customize-option input[type="checkbox"],
+        .customize-option input[type="radio"] {
+            margin-right: 12px;
+            cursor: pointer;
+            accent-color: #FF6B35;
+            width: 18px;
+            height: 18px;
+        }
+        
+        .customize-option textarea {
+            width: 100%;
+            border: 2px solid #FFE5CC;
+            border-radius: 12px;
+            padding: 14px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 100px;
+            transition: all 0.3s ease;
+            background: rgba(255, 107, 53, 0.02);
+        }
+        
+        .customize-option textarea:focus {
+            outline: none;
+            border-color: #FF6B35;
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.2);
+        }
+        
+        .customize-summary {
+            background: white;
+            padding: 35px;
+            border-radius: 18px;
+            border-left: 5px solid #FF6B35;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .customize-summary h3 {
+            color: #FF6B35;
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .customize-item {
+            padding: 14px 0;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .customize-item:last-child {
+            border-bottom: none;
+        }
+        
+        .customize-item strong {
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .customize-price {
+            color: #FF6B35;
+            font-weight: 700;
+        }
+        
+        .customize-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #FF6B35, #D4591D);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+        }
+        
+        .customize-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 45px rgba(255, 107, 53, 0.4);
+        }
+
+        /* ===== PCB: Constructor de Pastel ===== */
+        .pcb-block {
+            background: white;
+            border-radius: 18px;
+            padding: 22px 26px;
+            margin-bottom: 18px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.07);
+            position: relative;
+            z-index: 1;
+            transition: box-shadow 0.2s;
+        }
+        .pcb-block:hover { box-shadow: 0 10px 36px rgba(255,107,53,0.13); }
+        .pcb-block-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .pcb-step-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FF6B35, #D4591D);
+            color: white;
+            font-size: 13px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .pcb-block-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #333;
+        }
+        .pcb-slider-wrap {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .pcb-slider-wrap input[type="range"] {
+            flex: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            background: linear-gradient(to right, #FF6B35, #FFB347);
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+        }
+        .pcb-slider-wrap input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #FF6B35;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(255,107,53,0.5);
+            cursor: pointer;
+        }
+        .pcb-personas-display {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 64px;
+        }
+        #pcb-personas-val {
+            font-size: 38px;
+            font-weight: 800;
+            color: #FF6B35;
+            line-height: 1;
+            transition: transform 0.15s ease;
+        }
+        .pcb-personas-label { font-size: 11px; color: #999; font-weight: 600; }
+        .pcb-slider-marks {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #bbb;
+            margin-top: 6px;
+            padding: 0 2px;
+        }
+        .pcb-shape-cards {
+            display: flex;
+            gap: 14px;
+        }
+        .pcb-shape-card {
+            flex: 1;
+            border: 2.5px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 18px 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.22s ease;
+            background: white;
+        }
+        .pcb-shape-card:hover { border-color: #FF6B35; transform: translateY(-2px); }
+        .pcb-shape-card.active {
+            border-color: #FF6B35;
+            background: linear-gradient(135deg, #fff3e0, #ffe0cc);
+            box-shadow: 0 4px 16px rgba(255,107,53,0.25);
+        }
+        .pcb-shape-icon {
+            font-size: 30px;
+            margin-bottom: 6px;
+            color: #FF6B35;
+        }
+        .pcb-shape-name { font-size: 13px; font-weight: 700; color: #333; }
+        .pcb-shape-tag { font-size: 11px; color: #999; margin-top: 3px; }
+        .pcb-shape-card.active .pcb-shape-tag { color: #FF6B35; font-weight: 700; }
+        .pcb-text-input {
+            width: 100%;
+            border: 2px solid #FFE5CC;
+            border-radius: 10px;
+            padding: 11px 14px;
+            font-size: 13px;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.2s;
+            background: white;
+            box-sizing: border-box;
+        }
+        .pcb-text-input:focus { outline: none; border-color: #FF6B35; box-shadow: 0 0 0 3px rgba(255,107,53,0.12); }
+        textarea.pcb-text-input { resize: vertical; min-height: 60px; }
+        .pcb-escritura-row {
+            margin-top: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .pcb-escritura-label { font-size: 12px; color: #888; font-weight: 600; padding-top: 6px; white-space: nowrap; }
+        .pcb-toggle-row { display: flex; align-items: center; }
+        .pcb-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .pcb-toggle input { display: none; }
+        .pcb-toggle-slider {
+            width: 40px;
+            height: 22px;
+            background: #ddd;
+            border-radius: 11px;
+            position: relative;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+        .pcb-toggle-slider::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            top: 3px;
+            left: 3px;
+            transition: left 0.2s;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        }
+        .pcb-toggle input:checked + .pcb-toggle-slider { background: #FF6B35; }
+        .pcb-toggle input:checked + .pcb-toggle-slider::after { left: 21px; }
+        .pcb-toggle-label { font-size: 14px; color: #333; font-weight: 500; }
+        .pcb-summary {
+            background: linear-gradient(135deg, #fff3e0, #ffe0cc);
+            border: 2px solid #FF6B35;
+            border-radius: 18px;
+            padding: 22px 28px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .pcb-summary-left { flex: 1; }
+        .pcb-summary-label { font-size: 11px; color: #999; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .pcb-summary-desc { font-size: 14px; font-weight: 600; color: #333; margin-top: 2px; }
+        .pcb-extras-list { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+        .pcb-extra-tag {
+            background: white;
+            border: 1.5px solid #FFD4A8;
+            border-radius: 12px;
+            padding: 3px 9px;
+            font-size: 11px;
+            color: #555;
+        }
+        .pcb-extra-tag strong { color: #FF6B35; }
+        .pcb-summary-right { text-align: right; flex-shrink: 0; }
+        .pcb-summary-total-label { font-size: 11px; color: #FF6B35; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        #pcb-total {
+            font-size: 36px;
+            font-weight: 800;
+            color: #FF6B35;
+            transition: transform 0.2s ease;
+        }
+        /* Product badge */
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: linear-gradient(135deg, #FF6B35, #D4591D);
+            color: white;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 20px;
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(255,107,53,0.4);
+            letter-spacing: 0.3px;
+        }
+        .product-badge.badge-blue {
+            background: linear-gradient(135deg, #1565c0, #0d47a1);
+        }
+        .product-badge.badge-purple {
+            background: linear-gradient(135deg, #6d28d9, #4c1d95);
+        }
+        .product-badge.badge-gold {
+            background: linear-gradient(135deg, #d97706, #92400e);
+        }
+        @media (max-width: 768px) {
+            .pcb-summary { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .pcb-summary-right { width: 100%; display: flex; align-items: center; justify-content: space-between; }
+            .pcb-shape-cards { gap: 10px; }
+            .pcb-block { padding: 16px 18px; }
+            .pcb-escritura-row { flex-direction: column; gap: 6px; }
+        }
+        
+        /* Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 200;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        
+        .cart-modal.active {
+            display: flex;
+        }
+        
+        .cart-content {
+            background: white;
+            border-radius: 24px 0 0 24px;
+            width: 100%;
+            max-width: 450px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
+        }
+        
+        .cart-header {
+            background: linear-gradient(135deg, #FF6B35, #D4591D);
+            color: white;
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .cart-header h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 800;
+        }
+        
+        .cart-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            border-radius: 10px;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        
+        .cart-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .cart-items {
+            padding: 25px;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 18px;
+            border-bottom: 1px solid #f0f0f0;
+            background: rgba(255, 107, 53, 0.02);
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .cart-item-name {
+            font-weight: 700;
+            color: #2c2c2c;
+            flex: 1;
+            font-size: 15px;
+        }
+        
+        .cart-item-qty {
+            color: #999;
+            font-size: 13px;
+            margin: 0 15px;
+            font-weight: 600;
+        }
+        
+        .cart-item-price {
+            color: #FF6B35;
+            font-weight: 800;
+            margin-right: 12px;
+            min-width: 70px;
+            text-align: right;
+        }
+        
+        .cart-remove {
+            background: rgba(255, 107, 53, 0.1);
+            border: none;
+            color: #FF6B35;
+            cursor: pointer;
+            font-size: 18px;
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        
+        .cart-remove:hover {
+            background: rgba(255, 107, 53, 0.2);
+            transform: scale(1.1);
+        }
+        
+        .cart-empty {
+            text-align: center;
+            padding: 50px 20px;
+            color: #999;
+        }
+        
+        .cart-footer {
+            padding: 25px;
+            border-top: 2px solid #f0f0f0;
+            background: rgba(255, 107, 53, 0.02);
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #FF6B35, #D4591D);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #FF6B35, #D4591D);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+        }
+        
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(255, 107, 53, 0.4);
+        }
+        
+        /* Checkout modal */
+        .checkout-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            z-index: 500;
+            align-items: center;
+            justify-content: center;
+        }
+        .checkout-modal-overlay.open { display: flex; }
+        .checkout-modal-box {
+            background: white;
+            border-radius: 24px;
+            padding: 36px 32px;
+            width: 100%;
+            max-width: 420px;
+            margin: 20px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+            animation: sheetUp 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+        }
+        .checkout-modal-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #333;
+            margin-bottom: 6px;
+        }
+        .checkout-modal-sub {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+        .checkout-field { margin-bottom: 18px; }
+        .checkout-field label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 7px;
+        }
+        .checkout-field input {
+            width: 100%;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 15px;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            box-sizing: border-box;
+            background: white;
+        }
+        .checkout-field input:focus {
+            outline: none;
+            border-color: #FF6B35;
+            box-shadow: 0 0 0 3px rgba(255,107,53,0.12);
+        }
+        .checkout-field input.input-error { border-color: #ef4444; }
+        .checkout-field .field-hint {
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 5px;
+        }
+        .checkout-field .field-err {
+            font-size: 11px;
+            color: #ef4444;
+            margin-top: 5px;
+            display: none;
+        }
+        .checkout-confirm-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #FF6B35, #D4591D);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255,107,53,0.35);
+            margin-top: 6px;
+        }
+        .checkout-confirm-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(255,107,53,0.45); }
+        .checkout-confirm-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .checkout-cancel-link {
+            display: block;
+            text-align: center;
+            margin-top: 12px;
+            font-size: 13px;
+            color: #aaa;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .checkout-cancel-link:hover { color: #FF6B35; }
+        @media (max-width: 768px) {
+            .checkout-modal-box { border-radius: 24px 24px 0 0; margin: 0; position: fixed; bottom: 0; left: 0; right: 0; max-width: 100%; }
+            .checkout-modal-overlay.open { align-items: flex-end; }
+        }
+        /* Contacto */
+        .contact-section {
+            background: white;
+            padding: 60px 40px;
+            margin: 60px 0;
+            border-radius: 28px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            border: 1px solid rgba(255, 107, 53, 0.1);
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .contact-section h2 {
+            color: #FF6B35;
+            font-size: 42px;
+            margin-bottom: 15px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FF6B35 0%, #D4591D 25%, #8B5CF6 50%, #6366F1 75%, #10B981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .contact-section > p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 35px;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 35px;
+        }
+        
+        .contact-item {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecf1 100%);
+            padding: 30px;
+            border-radius: 18px;
+            transition: all 0.3s ease;
+            border-left: 4px solid #FF6B35;
+        }
+
+        .contact-item:nth-child(1) {
+            border-left-color: #FF6B35;
+        }
+
+        .contact-item:nth-child(2) {
+            border-left-color: #8B5CF6;
+        }
+
+        .contact-item:nth-child(3) {
+            border-left-color: #06B6D4;
+        }
+
+        .contact-item:nth-child(4) {
+            border-left-color: #10B981;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.15);
+        }
+        
+        .contact-item p {
+            margin: 10px 0;
+            font-weight: 600;
+            color: #2c2c2c;
+        }
+        
+        /* Panel de personalización en modal */
+        .custom-panel {
+            background: linear-gradient(135deg, #fff8f5 0%, #f3e8ff 100%);
+            border-radius: 18px;
+            padding: 20px;
+            margin: 16px 0;
+            border: 1px solid rgba(255,107,53,0.2);
+            text-align: left;
+            max-height: 320px;
+            overflow-y: auto;
+        }
+        .custom-panel h4 {
+            color: #FF6B35;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .custom-group {
+            margin-bottom: 14px;
+        }
+        .custom-group-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        .custom-chip-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+        .custom-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+        .custom-chip.add {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-color: #a5d6a7;
+        }
+        .custom-chip.add:hover, .custom-chip.add.active {
+            background: #2e7d32;
+            color: white;
+            border-color: #2e7d32;
+            transform: scale(1.05);
+        }
+        .custom-chip.remove {
+            background: #fce4ec;
+            color: #c62828;
+            border-color: #ef9a9a;
+        }
+        .custom-chip.remove:hover, .custom-chip.remove.active {
+            background: #c62828;
+            color: white;
+            border-color: #c62828;
+            transform: scale(1.05);
+        }
+        .custom-chip.pack {
+            background: #e3f2fd;
+            color: #1565c0;
+            border-color: #90caf9;
+        }
+        .custom-chip.pack:hover, .custom-chip.pack.active {
+            background: #1565c0;
+            color: white;
+            border-color: #1565c0;
+            transform: scale(1.05);
+        }
+        .custom-price-tag {
+            font-size: 10px;
+            opacity: 0.8;
+        }
+        .custom-total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0 0;
+            border-top: 1px solid rgba(255,107,53,0.2);
+            margin-top: 10px;
+        }
+        .custom-total-label { font-size: 13px; color: #555; font-weight: 600; }
+        .custom-total-price { font-size: 16px; font-weight: 800; color: #FF6B35; }
+        .modal-note-input {
+            width: 100%;
+            border: 1.5px solid #FFD4A8;
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 12px;
+            font-family: inherit;
+            resize: none;
+            margin-top: 8px;
+            background: white;
+            color: #333;
+            transition: border 0.2s;
+        }
+        .modal-note-input:focus { outline: none; border-color: #FF6B35; }
+
+        footer {
+            background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 50%, #3730a3 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 25px;
+            margin-top: 60px;
+        }
+        
+        footer p {
+            margin: 8px 0;
+            font-weight: 500;
+        }
+        
+        .footer-badge {
+            margin-top: 20px;
+            font-size: 13px;
+            opacity: 0.8;
+            letter-spacing: 0.5px;
+        }
+        
+        /* WhatsApp flotante */
+        .whatsapp-fab {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 24px rgba(37, 211, 102, 0.5);
+            cursor: pointer;
+            z-index: 8000;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            animation: waPulse 2.5s ease-in-out infinite;
+        }
+        .whatsapp-fab:hover {
+            transform: scale(1.12);
+            box-shadow: 0 10px 36px rgba(37, 211, 102, 0.65);
+            animation: none;
+        }
+        .whatsapp-fab i {
+            font-size: 30px;
+            color: white;
+            margin: 0;
+        }
+        @keyframes waPulse {
+            0%, 100% { box-shadow: 0 6px 24px rgba(37,211,102,0.5); }
+            50% { box-shadow: 0 6px 36px rgba(37,211,102,0.85), 0 0 0 10px rgba(37,211,102,0.12); }
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 6px;
+        }
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        /* Overlay menú móvil */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 0;
+            background: linear-gradient(180deg, #D4591D 0%, #8B5CF6 100%);
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            z-index: 99;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            padding: 16px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            transition: background 0.2s;
+        }
+        .mobile-menu a:hover { background: rgba(255,255,255,0.12); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 0 16px;
+                position: relative;
+            }
+
+            header { position: sticky; top: 0; }
+
+            nav { display: none; }
+
+            .hamburger { display: flex; }
+
+            .logo-text { font-size: 20px; }
+            .logo-img { width: 44px; height: 44px; }
+
+            /* Cart button sigue visible en header */
+            .cart-button-mobile {
+                display: flex;
+            }
+
+            .hero {
+                padding: 50px 16px 40px;
+            }
+            .hero h1 { font-size: 28px; line-height: 1.2; }
+            .hero p { font-size: 15px; }
+
+            .container { padding: 0 14px; }
+
+            .about-section {
+                padding: 28px 18px;
+                margin: 24px 0;
+                border-radius: 18px;
+            }
+            .about-section h2 { font-size: 26px; }
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+            .about-item { padding: 18px; }
+
+            .products-section { padding: 30px 0; }
+            .products-section h2 { font-size: 26px; margin-bottom: 24px; }
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+            .product-image { height: 200px; }
+            .product-info { padding: 16px; }
+            .product-name { font-size: 17px; }
+            .product-price { font-size: 22px; }
+
+            .customize-section {
+                padding: 28px 16px;
+                margin: 24px 0;
+                border-radius: 18px;
+            }
+            .customize-section h2 { font-size: 24px; }
+            .customize-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .customize-option { padding: 18px; }
+            .customize-summary { padding: 18px; }
+
+            .contact-section { padding: 30px 0; }
+            .contact-info { grid-template-columns: 1fr; gap: 14px; }
+            .contact-item { padding: 18px; }
+
+            footer { padding: 28px 16px; margin-top: 30px; }
+
+            .cart-content {
+                max-width: 100%;
+                width: 100%;
+                border-radius: 20px 20px 0 0;
+                bottom: 0;
+                top: auto;
+                transform: none;
+                left: 0;
+                position: fixed;
+                max-height: 85vh;
+                overflow-y: auto;
+            }
+
+            .success-modal {
+                /* Sheet desde abajo en móvil */
+                top: auto;
+                bottom: 0;
+                left: 0;
+                transform: none;
+                width: 100%;
+                max-width: 100%;
+                border-radius: 24px 24px 0 0;
+                padding: 24px 18px 32px;
+                max-height: 88vh;
+                overflow-y: auto;
+                animation: sheetUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+                display: none;
+                text-align: center;
+            }
+            .success-modal.has-panel[style*="display: block"] {
+                display: block !important;
+                grid-template-columns: unset;
+            }
+            .modal-left-col {
+                border-right: none;
+                border-bottom: 1px solid #FFE5CC;
+                padding-right: 0;
+                padding-bottom: 16px;
+                margin-bottom: 16px;
+                position: static;
+            }
+            @keyframes sheetUp {
+                from { transform: translateY(100%); opacity: 0.6; }
+                to   { transform: translateY(0);    opacity: 1; }
+            }
+            .success-modal-icon i { font-size: 64px; }
+            .success-modal h2 { font-size: 20px; }
+            .custom-panel { max-height: 38vh; }
+            .success-modal-icon { display: none; }
+            .whatsapp-fab { bottom: 18px; right: 16px; width: 52px; height: 52px; }
+            .whatsapp-fab i { font-size: 26px; }
+
+            .modal-btn {
+                min-width: unset;
+                padding: 12px 14px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="logo.jpg" alt="Pastelitos Logo" class="logo-img">
+                <div class="logo-text">Pastelitos S.A.</div>
+            </div>
+            <nav>
+                <a href="#inicio">Inicio</a>
+                <a href="#productos">Productos</a>
+                <a href="#personalizar" style="color: #FFE5CC; font-weight: bold;"><i class="fas fa-wand-magic-sparkles"></i> Personalizar</a>
+                <a href="#contacto">Contacto</a>
+                <a href="quejas.html" class="nav-opinion-link"><i class="fas fa-star"></i> Dejar opinión</a>
+                <button class="cart-button" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </button>
+            </nav>
+            <!-- Controles móvil -->
+            <div style="display:flex;align-items:center;gap:10px;">
+                <button class="cart-button" onclick="toggleCart()" style="display:none" id="cart-btn-mobile">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cart-count-mobile">0</span>
+                </button>
+                <button class="hamburger" id="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Menú">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+        <!-- Menú desplegable móvil -->
+        <nav class="mobile-menu" id="mobile-menu">
+            <a href="#inicio" onclick="closeMobileMenu()">Inicio</a>
+            <a href="#productos" onclick="closeMobileMenu()">Productos</a>
+            <a href="#personalizar" onclick="closeMobileMenu()"><i class="fas fa-wand-magic-sparkles"></i> Personalizar</a>
+            <a href="#contacto" onclick="closeMobileMenu()">Contacto</a>
+            <a href="quejas.html" onclick="closeMobileMenu()" class="mobile-opinion-link">
+                <span style="display:flex;align-items:center;gap:10px">
+                    <i class="fas fa-star"></i>
+                    <span>
+                        <span style="display:block;font-weight:700">Dejar mi opinión</span>
+                        <span style="display:block;font-size:12px;opacity:0.75;font-weight:400">Tu experiencia nos hace mejores 🌱</span>
+                    </span>
+                </span>
+            </a>
+    </header>
+    
+    <!-- Hero -->
+    <div class="hero" id="inicio">
+        <h1>Los Mejores Pasteles de Zanahoria</h1>
+        <p>Elaborados con ingredientes naturales y frescos bajo estándares ISO 9001:2015</p>
+    </div>
+    
+    <!-- Main Content -->
+    <main class="container">
+        
+        <!-- Sobre Nosotros -->
+        <section class="about-section">
+            <h2>Sobre Nosotros</h2>
+            <p>En Pastelitos S.A. nos especializamos en la elaboración de deliciosos pasteles de zanahoria. Cada producto es creado con pasión, utilizando ingredientes de la más alta calidad.</p>
+            
+            <div class="quality-badge">
+                <strong><i class="fas fa-check"></i> Certificado ISO 9001:2015</strong>
+                <p>Garantía de calidad e inocuidad alimentaria en todos nuestros productos</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-item">
+                    <h3>Nuestra Misión</h3>
+                    <p>Ofrecer pastel de zanahoria artesanal de alta calidad, elaborado con ingredientes naturales, garantizando sabor constante, responsabilidad organizacional.</p>
+                </div>
+                <div class="about-item">
+                    <h3>Nuestra Visión</h3>
+                    <p>Ser la pastelería referente en Machachi y expandirnos mediante sucursales, demostrando que recetas caseras y saludables pueden posicionarse a nivel cantonal.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Productos -->
+        <section class="products-section" id="productos">
+            <h2>Nuestros Productos</h2>
+            <div class="products-grid" id="products-grid"></div>
+        </section>
+        
+        <!-- Personalizar -->
+        <section class="customize-section" id="personalizar">
+            <div class="customize-badge"><i class="fas fa-wand-magic-sparkles"></i> CONSTRUCTOR DE PASTEL</div>
+            <h2>Diseña tu Pastel</h2>
+            <p>Elige cada detalle y el precio se calcula automáticamente. Desde 6 hasta 40 personas, exactamente como lo imaginas.</p>
+
+            <!-- Paso 1: Personas -->
+            <div class="pcb-block">
+                <div class="pcb-block-header">
+                    <span class="pcb-step-num">1</span>
+                    <span class="pcb-block-title"><i class="fas fa-users"></i> ¿Para cuántas personas?</span>
+                </div>
+                <div class="pcb-slider-wrap">
+                    <input type="range" id="pcb-personas" min="6" max="40" value="10" oninput="pcbUpdate()">
+                    <div class="pcb-personas-display">
+                        <span id="pcb-personas-val">10</span>
+                        <span class="pcb-personas-label">personas</span>
+                    </div>
+                </div>
+                <div class="pcb-slider-marks"><span>6</span><span>10</span><span>15</span><span>20</span><span>30</span><span>40</span></div>
+            </div>
+
+            <!-- Paso 2: Forma -->
+            <div class="pcb-block">
+                <div class="pcb-block-header">
+                    <span class="pcb-step-num">2</span>
+                    <span class="pcb-block-title"><i class="fas fa-shapes"></i> Forma del pastel</span>
+                </div>
+                <div class="pcb-shape-cards">
+                    <div class="pcb-shape-card active" onclick="pcbSelectShape(this, 0)">
+                        <div class="pcb-shape-icon">◯</div>
+                        <div class="pcb-shape-name">Redondo</div>
+                        <div class="pcb-shape-tag">Incluido</div>
+                    </div>
+                    <div class="pcb-shape-card" onclick="pcbSelectShape(this, 3)">
+                        <div class="pcb-shape-icon">◻</div>
+                        <div class="pcb-shape-name">Cuadrado</div>
+                        <div class="pcb-shape-tag">+$3.00</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 3: Cobertura -->
+            <div class="pcb-block">
+                <div class="pcb-block-header">
+                    <span class="pcb-step-num">3</span>
+                    <span class="pcb-block-title"><i class="fas fa-layer-group"></i> Cobertura</span>
+                </div>
+                <div class="custom-chip-row" id="pcb-cob-row">
+                    <span class="custom-chip pack active" onclick="pcbSelectCob(this, 0)"><i class="fas fa-cheese"></i> Queso Crema <span class="custom-price-tag">Incluido</span></span>
+                    <span class="custom-chip pack" onclick="pcbSelectCob(this, 2)"><i class="fas fa-swirl"></i> Buttercream <span class="custom-price-tag">+$2.00</span></span>
+                    <span class="custom-chip pack" onclick="pcbSelectCob(this, 3.5)"><i class="fas fa-droplet"></i> Ganache Chocolate <span class="custom-price-tag">+$3.50</span></span>
+                    <span class="custom-chip pack" onclick="pcbSelectCob(this, 5)"><i class="fas fa-circle"></i> Fondant Blanco <span class="custom-price-tag">+$5.00</span></span>
+                    <span class="custom-chip pack" onclick="pcbSelectCob(this, 7)"><i class="fas fa-palette"></i> Fondant de Color <span class="custom-price-tag">+$7.00</span></span>
+                </div>
+            </div>
+
+            <!-- Paso 4: Decoración -->
+            <div class="pcb-block">
+                <div class="pcb-block-header">
+                    <span class="pcb-step-num">4</span>
+                    <span class="pcb-block-title"><i class="fas fa-star"></i> Decoración <span style="font-size:11px;color:#999;font-weight:400">(selección múltiple)</span></span>
+                </div>
+                <div class="custom-chip-row" id="pcb-deco-row">
+                    <span class="custom-chip add" onclick="pcbToggleDeco(this, 3, 'Flores de fondant')"><i class="fas fa-leaf"></i> Flores de fondant <span class="custom-price-tag">+$3.00</span></span>
+                    <span class="custom-chip add" onclick="pcbToggleDeco(this, 2.5, 'Frutos secos premium')"><i class="fas fa-seedling"></i> Frutos secos premium <span class="custom-price-tag">+$2.50</span></span>
+                    <span class="custom-chip add" onclick="pcbToggleDeco(this, 1.5, 'Chispas de chocolate')"><i class="fas fa-cookie"></i> Chispas de chocolate <span class="custom-price-tag">+$1.50</span></span>
+                    <span class="custom-chip add" onclick="pcbToggleDeco(this, 4.5, 'Figuras en fondant')"><i class="fas fa-shapes"></i> Figuras en fondant <span class="custom-price-tag">+$4.50</span></span>
+                    <span class="custom-chip add" onclick="pcbToggleDeco(this, 6, 'Hoja de oro comestible')"><i class="fas fa-crown"></i> Hoja de oro comestible <span class="custom-price-tag">+$6.00</span></span>
+                    <span class="custom-chip add" onclick="pcbToggleDeco(this, 0.5, 'Velas de cumpleaños')"><i class="fas fa-fire"></i> Velas de cumpleaños <span class="custom-price-tag">+$0.50</span></span>
+                    <span class="custom-chip add" onclick="pcbToggleDeco(this, 2, 'Moño decorativo')"><i class="fas fa-ribbon"></i> Moño decorativo <span class="custom-price-tag">+$2.00</span></span>
+                    <span class="custom-chip add" onclick="pcbToggleDeco(this, 1.5, 'Lazo de regalo')"><i class="fas fa-gift"></i> Lazo de regalo <span class="custom-price-tag">+$1.50</span></span>
+                </div>
+            </div>
+
+            <!-- Paso 5: Mensaje en el pastel -->
+            <div class="pcb-block">
+                <div class="pcb-block-header">
+                    <span class="pcb-step-num">5</span>
+                    <span class="pcb-block-title"><i class="fas fa-pen-nib"></i> Mensaje en el pastel <span style="font-size:11px;color:#999;font-weight:400">(+$1.00 si escribes algo)</span></span>
+                </div>
+                <input type="text" class="pcb-text-input" id="pcb-mensaje" placeholder='Ej: "Feliz Cumpleaños María! ✨"' oninput="pcbUpdate()" maxlength="60">
+                <div class="pcb-escritura-row">
+                    <span class="pcb-escritura-label">Estilo de escritura:</span>
+                    <div class="custom-chip-row" id="pcb-escritura-row">
+                        <span class="custom-chip pack active" onclick="pcbSelectEscritura(this, 0)"><i class="fas fa-font"></i> Normal <span class="custom-price-tag">Incluido</span></span>
+                        <span class="custom-chip pack" onclick="pcbSelectEscritura(this, 2)"><i class="fas fa-italic"></i> Caligrafía cursiva <span class="custom-price-tag">+$2.00</span></span>
+                        <span class="custom-chip pack" onclick="pcbSelectEscritura(this, 3)"><i class="fas fa-heading"></i> Lettering en relieve <span class="custom-price-tag">+$3.00</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 6: Tarjeta -->
+            <div class="pcb-block">
+                <div class="pcb-block-header">
+                    <span class="pcb-step-num">6</span>
+                    <span class="pcb-block-title"><i class="fas fa-envelope-open-text"></i> Tarjeta de felicitación</span>
+                </div>
+                <div class="pcb-toggle-row">
+                    <label class="pcb-toggle">
+                        <input type="checkbox" id="pcb-tarjeta" onchange="pcbUpdate()">
+                        <span class="pcb-toggle-slider"></span>
+                        <span class="pcb-toggle-label">Incluir tarjeta <span style="font-size:12px;color:#FF6B35;font-weight:700">+$0.50</span></span>
+                    </label>
+                </div>
+                <input type="text" class="pcb-text-input" id="pcb-tarjeta-msg" placeholder="Mensaje para la tarjeta..." maxlength="100" style="display:none;margin-top:10px" oninput="pcbUpdate()">
+            </div>
+
+            <!-- Paso 7: Caja / Empaque -->
+            <div class="pcb-block">
+                <div class="pcb-block-header">
+                    <span class="pcb-step-num">7</span>
+                    <span class="pcb-block-title"><i class="fas fa-box"></i> Empaque / Caja</span>
+                </div>
+                <div class="custom-chip-row" id="pcb-caja-row">
+                    <span class="custom-chip pack active" onclick="pcbSelectCaja(this, 0)"><i class="fas fa-box"></i> Caja estándar <span class="custom-price-tag">Incluido</span></span>
+                    <span class="custom-chip pack" onclick="pcbSelectCaja(this, 3)"><i class="fas fa-box-open"></i> Caja premium <span class="custom-price-tag">+$3.00</span></span>
+                    <span class="custom-chip pack" onclick="pcbSelectCaja(this, 6)"><i class="fas fa-paint-brush"></i> Caja diseño personalizado <span class="custom-price-tag">+$6.00</span></span>
+                    <span class="custom-chip pack" onclick="pcbSelectCaja(this, 10)"><i class="fas fa-gift"></i> Gift set exclusivo <span class="custom-price-tag">+$10.00</span></span>
+                </div>
+            </div>
+
+            <!-- Nota especial -->
+            <div class="pcb-block">
+                <div class="pcb-block-header">
+                    <span class="pcb-step-num"><i class="fas fa-note-sticky" style="font-size:13px"></i></span>
+                    <span class="pcb-block-title">Instrucciones especiales o alergias</span>
+                </div>
+                <textarea class="pcb-text-input" id="pcb-nota" rows="2" placeholder="Alergias, preferencias, fecha de entrega, instrucciones de personalización..."></textarea>
+            </div>
+
+            <!-- Resumen y total en vivo -->
+            <div class="pcb-summary">
+                <div class="pcb-summary-left">
+                    <div class="pcb-summary-label">Tu pastel personalizado</div>
+                    <div id="pcb-summary-desc" class="pcb-summary-desc">10 personas · Redondo · Queso Crema</div>
+                    <div id="pcb-extras-list" class="pcb-extras-list"></div>
+                </div>
+                <div class="pcb-summary-right">
+                    <div class="pcb-summary-total-label">Total estimado</div>
+                    <div id="pcb-total">$12.00</div>
+                </div>
+            </div>
+
+            <button class="customize-btn" onclick="pcbAddToCart(event)">
+                <i class="fas fa-wand-magic-sparkles"></i> Añadir Pastel Personalizado al Carrito
+            </button>
+        </section>
+        
+        <!-- Contacto -->
+        <section class="contact-section" id="contacto">
+            <h2>Contáctanos</h2>
+            <p>¿Preguntas? ¡Estamos aquí para ayudarte!</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <p><strong><i class="fas fa-location-dot"></i> Ubicación</strong></p>
+                    <p>Calle García Moreno N2-35 y 23 de Mayo, Local 12, Machachi, Cantón Mejía, Pichincha – Ecuador</p>
+                </div>
+                <div class="contact-item">
+                    <p><strong><i class="fas fa-clock"></i> Horario</strong></p>
+                    <p>Lunes a domingo, 9:00 – 18:00</p>
+                </div>
+                <div class="contact-item">
+                    <p><strong><i class="fas fa-box"></i> Envíos</strong></p>
+                    <p>Disponibles en la zona</p>
+                </div>
+            </div>
+
+            <!-- Invitación a dejar opinión -->
+            <div style="margin-top:40px;padding:28px 32px;background:linear-gradient(135deg,#fff3e0,#f3e8ff);border-radius:20px;border:2px dashed rgba(255,107,53,0.3);">
+                <p style="font-size:22px;margin-bottom:6px">💬</p>
+                <p style="font-size:17px;font-weight:700;color:#333;margin-bottom:6px">¿Ya probaste nuestros pasteles?</p>
+                <p style="font-size:14px;color:#777;margin-bottom:20px;line-height:1.6">Tu opinión llega directo a nuestro equipo y nos ayuda a seguir mejorando. No toma más de 2 minutos.</p>
+                <a href="quejas.html" style="display:inline-flex;align-items:center;gap:9px;background:linear-gradient(135deg,#FF6B35,#D4591D);color:white;text-decoration:none;padding:13px 26px;border-radius:14px;font-weight:700;font-size:14px;box-shadow:0 6px 20px rgba(255,107,53,0.35);transition:all 0.2s" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <i class="fas fa-star"></i> Dejar mi opinión
+                </a>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Modal de Checkout -->
+    <div class="checkout-modal-overlay" id="checkout-overlay">
+        <div class="checkout-modal-box">
+            <div class="checkout-modal-title"><i class="fas fa-bag-shopping" style="color:#FF6B35"></i> Finalizar pedido</div>
+            <div class="checkout-modal-sub">Solo necesitamos tu nombre y WhatsApp para confirmar tu pedido y enviarte la confirmación.</div>
+            <div class="checkout-field">
+                <label>Tu nombre</label>
+                <input type="text" id="co-nombre" placeholder="Ej: María García" autocomplete="given-name">
+                <div class="field-err" id="err-nombre">Por favor ingresa tu nombre.</div>
+            </div>
+            <div class="checkout-field">
+                <label>Número de WhatsApp</label>
+                <input type="tel" id="co-whatsapp" placeholder="Ej: 0987654321 o 593987654321" inputmode="numeric">
+                <div class="field-hint">Solo números. Puedes incluir o no el código de país.</div>
+                <div class="field-err" id="err-whatsapp">Ingresa solo números (mínimo 9 dígitos).</div>
+            </div>
+            <button class="checkout-confirm-btn" id="co-submit-btn" onclick="submitCheckout()">
+                <i class="fas fa-paper-plane"></i> Confirmar pedido
+            </button>
+            <span class="checkout-cancel-link" onclick="closeCheckoutModal()">Cancelar y seguir comprando</span>
+        </div>
+    </div>
+
+    <!-- Modal Carrito -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>Mi Carrito</h2>
+                <button class="cart-close" onclick="toggleCart()"><i class="fas fa-xmark"></i></button>
+            </div>
+            <div class="cart-items" id="cart-items">
+                <div class="cart-empty">Tu carrito está vacío</div>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cart-total">$0.00</span>
+                </div>
+                <button class="checkout-btn" onclick="checkout()">Comprar Ahora</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Éxito Personalizado -->
+    <div id="success-modal-overlay"></div>
+    <div class="success-modal" id="success-modal">
+        <div class="modal-left-col" id="modal-left-col">
+            <div class="success-modal-icon" id="modal-icon"></div>
+            <h2 id="modal-title"></h2>
+            <p id="modal-message"></p>
+            <div class="success-modal-buttons" id="modal-buttons" style="margin-top:16px"></div>
+        </div>
+        <div class="modal-right-col" id="modal-right-col">
+            <div id="modal-custom-panel" style="display:none"></div>
+        </div>
+    </div>
+
+    <!-- WhatsApp FAB -->
+    <a class="whatsapp-fab" id="whatsapp-fab" href="#" onclick="openWhatsApp(); return false;" aria-label="Contactar por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <!-- Footer -->
+    <footer>
+        <p><strong>Pastelitos S.A.</strong></p>
+        <p>Pastelería especializada en pasteles de zanahoria artesanales</p>
+        <div class="footer-badge"><i class="fas fa-check"></i> Certificado ISO 9001:2015 | Calidad garantizada</div>
+        <p>&copy; 2026 Pastelitos S.A. - Todos los derechos reservados</p>
+    </footer>
+    
+    <script>
+        // Opciones de personalización inteligente por producto
+        const opcionesPersonalizacion = {
+            1: { // Pastelito Individual
+                nombre: 'Pastelito Individual',
+                basePrice: 1.45,
+                quitar: [
+                    { id: 'sin_cobertura', label: 'Sin cobertura de queso', precio: -0.10 },
+                    { id: 'sin_azucar', label: 'Sin azúcar (versión fit)', precio: 0 },
+                ],
+                agregar: [
+                    { id: 'extra_cobertura', label: 'Extra cobertura', precio: 0.20 },
+                    { id: 'nueces', label: 'Nueces', precio: 0.30 },
+                    { id: 'chispas', label: 'Chispas de chocolate', precio: 0.25 },
+                    { id: 'canela', label: 'Extra canela', precio: 0.10 },
+                ],
+                empaque: [
+                    { id: 'film', label: 'Envuelto en film', precio: 0 },
+                    { id: 'cajita', label: 'Cajita individual', precio: 0.30 },
+                ]
+            },
+            2: { // Pack 12
+                nombre: 'Pack 12 Pastelitos',
+                basePrice: 14.50,
+                quitar: [
+                    { id: 'sin_cobertura_pack', label: 'Sin cobertura (todo el pack)', precio: -0.80 },
+                ],
+                agregar: [
+                    { id: 'mix_coberturas', label: 'Mix coberturas variadas', precio: 1.00 },
+                    { id: 'pack_nueces', label: 'Con nueces (todo el pack)', precio: 2.00 },
+                    { id: 'pack_chispas', label: 'Con chispas chocolate', precio: 1.50 },
+                    { id: 'lazo_regalo', label: 'Lazo de regalo', precio: 1.50 },
+                    { id: 'tarjeta_pack', label: 'Tarjeta personalizada', precio: 0.50 },
+                ],
+                empaque: [
+                    { id: 'caja_pack', label: 'Caja estándar pack', precio: 0 },
+                    { id: 'caja_premium_pack', label: 'Caja premium con ventana', precio: 3.00 },
+                    { id: 'caja_logo', label: 'Caja con logo Pastelitos', precio: 5.00 },
+                ]
+            },
+            3: { // Pastel Grande
+                nombre: 'Pastel Grande',
+                basePrice: 12.00,
+                quitar: [
+                    { id: 'sin_cobertura_g', label: 'Sin cobertura de queso crema', precio: -1.00 },
+                    { id: 'sin_nuez_g', label: 'Sin nueces (alergia)', precio: 0 },
+                ],
+                agregar: [
+                    { id: 'deco_flores', label: 'Flores de fondant', precio: 3.00 },
+                    { id: 'frutos_secos_g', label: 'Frutos secos premium', precio: 2.50 },
+                    { id: 'mensaje_g', label: 'Mensaje escrito en pastel', precio: 1.00 },
+                    { id: 'velas_g', label: 'Velas de cumpleaños', precio: 0.50 },
+                    { id: 'moño_g', label: 'Moño decorativo', precio: 2.00 },
+                ],
+                empaque: [
+                    { id: 'caja_std_g', label: 'Caja estándar', precio: 0 },
+                    { id: 'caja_prem_g', label: 'Caja premium', precio: 2.00 },
+                    { id: 'caja_logo_g', label: 'Caja con logo Pastelitos', precio: 5.00 },
+                ]
+            },
+            4: { // Royal Class
+                nombre: 'Royal Class',
+                basePrice: 22.00,
+                quitar: [
+                    { id: 'sin_almendras', label: 'Sin almendras (alergia)', precio: 0 },
+                    { id: 'sin_pasas', label: 'Sin pasas', precio: 0 },
+                    { id: 'sin_nueces_rc', label: 'Sin nueces', precio: 0 },
+                    { id: 'sin_cob_rc', label: 'Sin cobertura de queso', precio: -1.50 },
+                ],
+                agregar: [
+                    { id: 'flores_rc', label: 'Flores de fondant', precio: 3.00 },
+                    { id: 'hoja_oro', label: 'Hoja de oro comestible', precio: 5.00 },
+                    { id: 'mensaje_rc', label: 'Mensaje escrito en pastel', precio: 1.00 },
+                    { id: 'velas_rc', label: 'Velas de cumpleaños', precio: 0.50 },
+                    { id: 'botella_rc', label: 'Botella de vino Merlot', precio: 12.00 },
+                ],
+                empaque: [
+                    { id: 'caja_prem_rc', label: 'Caja premium', precio: 0 },
+                    { id: 'caja_logo_rc', label: 'Caja con logo Pastelitos', precio: 5.00 },
+                    { id: 'caja_gift_rc', label: 'Caja gift set exclusivo', precio: 8.00 },
+                ]
+            }
+        };
+
+        // Estado de personalización del modal
+        let modalCustomState = { productId: null, selections: {}, nota: '' };
+
+        function calcModalCustomTotal() {
+            const base = opcionesPersonalizacion[modalCustomState.productId];
+            if (!base) return 0;
+            let extra = 0;
+            Object.entries(modalCustomState.selections).forEach(([id, active]) => {
+                if (!active) return;
+                const allOpts = [...base.quitar, ...base.agregar, ...base.empaque];
+                const opt = allOpts.find(o => o.id === id);
+                if (opt) extra += opt.precio;
+            });
+            return extra;
+        }
+
+        function toggleChip(id, precio, chipEl) {
+            chipEl.classList.toggle('active');
+            modalCustomState.selections[id] = chipEl.classList.contains('active');
+            updateModalTotal();
+        }
+
+        function updateModalTotal() {
+            const base = opcionesPersonalizacion[modalCustomState.productId];
+            if (!base) return;
+            const extra = calcModalCustomTotal();
+            const newPrice = (base.basePrice + extra).toFixed(2);
+            const totalEl = document.getElementById('modal-left-total');
+            if (totalEl) {
+                totalEl.textContent = '$' + newPrice;
+                totalEl.style.transform = 'scale(1.15)';
+                setTimeout(() => { totalEl.style.transform = 'scale(1)'; }, 200);
+            }
+        }
+
+        function applyModalCustomToCart() {
+            const base = opcionesPersonalizacion[modalCustomState.productId];
+            const extra = calcModalCustomTotal();
+            const nota = document.getElementById('modal-nota') ? document.getElementById('modal-nota').value : '';
+            // Actualizar el ítem en carrito con precio y nota
+            const item = cart.find(i => i.id === modalCustomState.productId);
+            if (item) {
+                item.precio = base.basePrice + extra;
+                if (nota) item.nota = nota;
+                // Construir resumen de selecciones
+                const allOpts = [...base.quitar, ...base.agregar, ...base.empaque];
+                const selLabels = Object.entries(modalCustomState.selections)
+                    .filter(([,v]) => v)
+                    .map(([id]) => allOpts.find(o => o.id === id)?.label)
+                    .filter(Boolean);
+                if (selLabels.length) item.descripción = selLabels.join(', ');
+                updateCart();
+            }
+            closeSuccessModal();
+        }
+
+        function buildCustomPanel(productId) {
+            const conf = opcionesPersonalizacion[productId];
+            if (!conf) return '';
+            modalCustomState = { productId, selections: {}, nota: '' };
+            // Empaque: primera opción activa por defecto
+            if (conf.empaque.length) {
+                modalCustomState.selections[conf.empaque[0].id] = true;
+            }
+
+            const chipsQuitar = conf.quitar.map(o => `
+                <span class="custom-chip remove" onclick="toggleChip('${o.id}', ${o.precio}, this)">
+                    <i class="fas fa-minus-circle"></i> ${o.label}
+                    <span class="custom-price-tag">${o.precio < 0 ? o.precio.toFixed(2) : (o.precio === 0 ? '' : '+$'+o.precio.toFixed(2))}</span>
+                </span>`).join('');
+
+            const chipsAgregar = conf.agregar.map(o => `
+                <span class="custom-chip add" onclick="toggleChip('${o.id}', ${o.precio}, this)">
+                    <i class="fas fa-plus-circle"></i> ${o.label}
+                    ${o.precio > 0 ? `<span class="custom-price-tag">+$${o.precio.toFixed(2)}</span>` : ''}
+                </span>`).join('');
+
+            const chipsEmpaque = conf.empaque.map((o, i) => `
+                <span class="custom-chip pack ${i === 0 ? 'active' : ''}" onclick="selectEmpaque('${o.id}', ${o.precio}, this)">
+                    <i class="fas fa-box"></i> ${o.label}
+                    ${o.precio > 0 ? `<span class="custom-price-tag">+$${o.precio.toFixed(2)}</span>` : ''}
+                </span>`).join('');
+
+            return `
+            <div class="custom-panel">
+                <h4><i class="fas fa-sliders"></i> Personaliza tu pedido</h4>
+                ${conf.quitar.length ? `
+                <div class="custom-group">
+                    <div class="custom-group-title"><i class="fas fa-minus"></i> Quitar ingrediente</div>
+                    <div class="custom-chip-row">${chipsQuitar}</div>
+                </div>` : ''}
+                ${conf.agregar.length ? `
+                <div class="custom-group">
+                    <div class="custom-group-title"><i class="fas fa-plus"></i> Agregar extra</div>
+                    <div class="custom-chip-row">${chipsAgregar}</div>
+                </div>` : ''}
+                <div class="custom-group">
+                    <div class="custom-group-title"><i class="fas fa-box"></i> Empaque</div>
+                    <div class="custom-chip-row">${chipsEmpaque}</div>
+                </div>
+                <textarea class="modal-note-input" id="modal-nota" rows="2" placeholder="Nota especial, alergia, mensaje en el pastel..."></textarea>
+            </div>`;
+        }
+
+        function selectEmpaque(id, precio, chipEl) {
+            const conf = opcionesPersonalizacion[modalCustomState.productId];
+            // Desactivar todos los chips de empaque
+            conf.empaque.forEach(o => {
+                delete modalCustomState.selections[o.id];
+            });
+            chipEl.closest('.custom-chip-row').querySelectorAll('.custom-chip').forEach(c => c.classList.remove('active'));
+            chipEl.classList.add('active');
+            modalCustomState.selections[id] = true;
+            const extra = calcModalCustomTotal();
+            updateModalTotal();
+        }
+
+        // Mensajes personalizados para cada pastel
+        const mensajesPastel = {
+            1: {
+                icon: '<i class="fas fa-cake-candles"></i>',
+                title: '¡Excelente decisión!',
+                message: '¡Tu Pastelito Individual está en el carrito! Disfruta tu porción artesanal.'
+            },
+            2: {
+                icon: '<i class="fas fa-box-open"></i>',
+                title: '¡Pack añadido!',
+                message: '¡Tu Pack de 12 Pastelitos está en el carrito! Perfecto para compartir o surtirte para la semana.'
+            },
+            3: {
+                icon: '<i class="fas fa-users"></i>',
+                title: '¡Pastel Grande añadido!',
+                message: '¡Tu Pastel Grande para la ocasión especial está en el carrito!'
+            },
+            4: {
+                icon: '<i class="fas fa-crown"></i>',
+                title: '¡Royal Class añadido!',
+                message: '¡Tu pastel premium Royal Class está en el carrito!'
+            },
+            custom: {
+                icon: '<i class="fas fa-sparkles"></i>',
+                title: '¡Tu obra maestra está lista!',
+                message: 'Tu Pastel Personalizado ha sido añadido al carrito. ¡Creaste algo verdaderamente único!'
+            }
+        };
+
+        // Función para crear animación de pastel flotante
+        function createFloatingCake(event, icon) {
+            let button = event.target;
+            
+            // Si el evento no tiene un target directo, buscar el botón
+            if (!button || button.tagName !== 'BUTTON') {
+                button = document.querySelector('.add-to-cart, .customize-btn');
+            }
+            
+            if (!button) return;
+
+            const rect = button.getBoundingClientRect();
+            const cake = document.createElement('div');
+            cake.className = 'floating-cake';
+            cake.innerHTML = icon;
+            cake.style.left = (rect.left + rect.width / 2) + 'px';
+            cake.style.top = rect.top + 'px';
+            
+            document.body.appendChild(cake);
+            
+            setTimeout(() => cake.remove(), 1500);
+        }
+
+        // Función para mostrar modal de éxito personalizada
+        function showSuccessModal(producto, event, isCustom = false) {
+            const mensaje = isCustom ? mensajesPastel.custom : mensajesPastel[producto.id];
+            
+            // Crear animación de pastel flotante
+            if (event && event.target) {
+                createFloatingCake(event, mensaje.icon);
+            }
+            
+            // Configurar la modal
+            document.getElementById('modal-icon').innerHTML = mensaje.icon;
+            document.getElementById('modal-title').textContent = mensaje.title;
+            document.getElementById('modal-message').textContent = mensaje.message;
+
+            // Total dinámico en columna izquierda
+            let leftTotalEl = document.getElementById('modal-left-total-wrap');
+            if (!leftTotalEl) {
+                leftTotalEl = document.createElement('div');
+                leftTotalEl.id = 'modal-left-total-wrap';
+                leftTotalEl.style.cssText = 'margin-top:14px;background:linear-gradient(135deg,#fff3e0,#ffe0cc);border-radius:14px;padding:12px 20px;border:2px solid #FF6B35;';
+                leftTotalEl.innerHTML = `<div style="font-size:11px;color:#999;font-weight:600;text-transform:uppercase;letter-spacing:0.5px">Total</div><div id="modal-left-total" style="font-size:28px;font-weight:800;color:#FF6B35;transition:transform 0.2s ease">$0.00</div>`;
+                document.getElementById('modal-left-col').appendChild(leftTotalEl);
+            }
+            // Inicializar con precio base
+            if (!isCustom && producto.id && opcionesPersonalizacion[producto.id]) {
+                document.getElementById('modal-left-total').textContent = '$' + opcionesPersonalizacion[producto.id].basePrice.toFixed(2);
+                leftTotalEl.style.display = 'block';
+            } else {
+                leftTotalEl.style.display = 'none';
+            }
+
+            // Panel de personalización contextual (solo para productos del catálogo, no custom)
+            const panelContainer = document.getElementById('modal-custom-panel');
+            const modal = document.getElementById('success-modal');
+            const leftCol = document.getElementById('modal-left-col');
+            const rightCol = document.getElementById('modal-right-col');
+            if (!isCustom && producto.id && opcionesPersonalizacion[producto.id]) {
+                panelContainer.innerHTML = buildCustomPanel(producto.id);
+                panelContainer.style.display = 'block';
+                modal.classList.add('has-panel');
+                // En móvil: columna izquierda dentro del flujo normal
+                rightCol.style.display = 'block';
+            } else {
+                panelContainer.innerHTML = '';
+                panelContainer.style.display = 'none';
+                modal.classList.remove('has-panel');
+                rightCol.style.display = 'none';
+            }
+            
+            // Crear botones
+            const buttonsContainer = document.getElementById('modal-buttons');
+            if (!isCustom && producto.id && opcionesPersonalizacion[producto.id]) {
+                buttonsContainer.innerHTML = `
+                    <button class="modal-btn modal-btn-primary" onclick="applyModalCustomToCart()">
+                        <i class="fas fa-check"></i> Confirmar y ver carrito
+                    </button>
+                    <button class="modal-btn modal-btn-outline" onclick="closeSuccessModal()">
+                        <i class="fas fa-arrow-right"></i> Seguir comprando
+                    </button>
+                `;
+            } else {
+                buttonsContainer.innerHTML = `
+                    <button class="modal-btn modal-btn-primary" onclick="closeSuccessModal(); toggleCart()">
+                        <i class="fas fa-shopping-cart"></i> Ver Carrito
+                    </button>
+                    <button class="modal-btn modal-btn-outline" onclick="closeSuccessModal()">
+                        <i class="fas fa-arrow-right"></i> Seguir Comprando
+                    </button>
+                `;
+            }
+            
+            // Mostrar overlay y modal
+            document.getElementById('success-modal-overlay').style.display = 'block';
+            document.getElementById('success-modal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Función para cerrar la modal
+        function closeSuccessModal() {
+            document.getElementById('success-modal-overlay').style.display = 'none';
+            document.getElementById('success-modal').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        // Cerrar modal al hacer click en el overlay
+        document.addEventListener('DOMContentLoaded', function() {
+            const overlay = document.getElementById('success-modal-overlay');
+            overlay.addEventListener('click', closeSuccessModal);
+        });
+
+        const productos = [
+            {id: 1, nombre: "Pastelito Individual", descripción: "Porción 6 cm × 8 cm — ~104 g", precio: 1.45, imagen: "https://lpsupabase.luispintasolutions.com/storage/v1/object/public/luispintapersonal/mi_espacio/Pastelito%20Normal.png", ingredientes: "Zanahoria fresca, cobertura de queso crema", badge: "✨ Porción justa para 1", badgeClass: ""},
+            {id: 2, nombre: "Pack 12 Pastelitos", descripción: "10 unidades + 2 gratis", precio: 14.50, imagen: "https://lpsupabase.luispintasolutions.com/storage/v1/object/public/luispintapersonal/mi_espacio/Pack%2012%20pastelitos.png", ingredientes: "Zanahoria fresca, cobertura de queso crema", badge: "🔥 El más vendido", badgeClass: ""},
+            {id: 3, nombre: "Pastel Grande", descripción: "Para 8 a 12 personas", precio: 12.00, imagen: "https://lpsupabase.luispintasolutions.com/storage/v1/object/public/luispintapersonal/mi_espacio/Pastel%208%20Personas.png", ingredientes: "Zanahoria fresca, cobertura de queso crema", badge: "👥 Ideal para reuniones", badgeClass: "badge-blue"},
+            {id: 4, nombre: "Royal Class", descripción: "Para 20 personas", precio: 22.00, imagen: "https://lpsupabase.luispintasolutions.com/storage/v1/object/public/luispintapersonal/mi_espacio/Pastel%2020%20personas.png", ingredientes: "Zanahoria fresca, nueces, almendras, pasas, cobertura de queso crema", badge: "👑 Edición Premium", badgeClass: "badge-gold"}
+        ];
+        
+        let cart = [];
+        
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = productos.map(p => `
+                <div class="product-card">
+                    <div class="product-image" style="position:relative">
+                        ${p.badge ? `<span class="product-badge ${p.badgeClass || ''}">${p.badge}</span>` : ''}
+                        <img src="${p.imagen}" alt="${p.nombre}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%23FFE5CC%22 width=%22400%22 height=%22300%22/%3E%3C/svg%3E'">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">${p.nombre}</div>
+                        <div class="product-description">${p.descripción}</div>
+                        <div style="font-size: 12px; color: #999; margin-bottom: 10px;">${p.ingredientes}</div>
+                        <div class="product-price">$${p.precio.toFixed(2)}</div>
+                        <div class="product-controls">
+                            <div class="quantity-control">
+                                <button onclick="decreaseQty(${p.id})">−</button>
+                                <span id="qty-${p.id}">1</span>
+                                <button onclick="increaseQty(${p.id})">+</button>
+                            </div>
+                            <button class="add-to-cart" onclick="addToCart(${p.id}, event)">Añadir</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function increaseQty(id) {
+            const span = document.getElementById(`qty-${id}`);
+            span.textContent = parseInt(span.textContent) + 1;
+        }
+        
+        function decreaseQty(id) {
+            const span = document.getElementById(`qty-${id}`);
+            if (parseInt(span.textContent) > 1) span.textContent = parseInt(span.textContent) - 1;
+        }
+        
+        function addToCart(productId, event) {
+            const product = productos.find(p => p.id === productId);
+            const qty = parseInt(document.getElementById(`qty-${productId}`).textContent);
+            const existing = cart.find(item => item.id === productId);
+            
+            if (existing) {
+                existing.cantidad += qty;
+            } else {
+                cart.push({...product, cantidad: qty});
+            }
+            
+            updateCart();
+            document.getElementById(`qty-${productId}`).textContent = 1;
+            
+            // Mostrar modal de éxito personalizada con animación
+            const clickEvent = event || new Event('click');
+            showSuccessModal(product, { target: event.currentTarget || document.querySelector(`button[onclick*="addToCart(${productId}"]`) });
+        }
+        
+        function updateCart() {
+            document.getElementById('cart-count').textContent = cart.reduce((sum, item) => sum + item.cantidad, 0);
+            renderCart();
+        }
+        
+        function renderCart() {
+            const cartItems = document.getElementById('cart-items');
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<div class="cart-empty">Tu carrito está vacío</div>';
+                document.getElementById('cart-total').textContent = '$0.00';
+                return;
+            }
+            
+            let total = 0;
+            cartItems.innerHTML = cart.map((item, index) => {
+                const subtotal = item.precio * item.cantidad;
+                total += subtotal;
+                const modsHtml = item.descripción && item.descripción !== productos.find(p=>p.id===item.id)?.descripción
+                    ? `<div style="font-size:11px;color:#888;margin-top:3px;line-height:1.4">
+                        <i class="fas fa-sliders" style="color:#FF6B35;font-size:10px;margin-right:3px"></i>${item.descripción}
+                       </div>`
+                    : '';
+                const notaHtml = item.nota
+                    ? `<div style="font-size:11px;color:#8B5CF6;margin-top:2px">
+                        <i class="fas fa-note-sticky" style="font-size:10px;margin-right:3px"></i>${item.nota}
+                       </div>`
+                    : '';
+                return `<div class="cart-item">
+                    <div style="flex:1">
+                        <div class="cart-item-name">${item.nombre}</div>
+                        ${modsHtml}${notaHtml}
+                    </div>
+                    <span class="cart-item-qty">x${item.cantidad}</span>
+                    <span class="cart-item-price">$${subtotal.toFixed(2)}</span>
+                    <button class="cart-remove" onclick="removeFromCart(${index})"><i class="fas fa-trash"></i></button>
+                </div>`;
+            }).join('');
+            
+            document.getElementById('cart-total').textContent = '$' + total.toFixed(2);
+        }
+        
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+        
+        function toggleCart() {
+            document.getElementById('cart-modal').classList.toggle('active');
+        }
+        
+        function checkout() {
+            if (cart.length === 0) {
+                document.getElementById('modal-icon').innerHTML = '<i class="fas fa-box-open"></i>';
+                document.getElementById('modal-title').textContent = 'Carrito Vacío';
+                document.getElementById('modal-message').textContent = 'Parece que no has añadido ningún producto aún. ¡Explora nuestros deliciosos pasteles!';
+                const buttonsContainer = document.getElementById('modal-buttons');
+                buttonsContainer.innerHTML = `
+                    <button class="modal-btn modal-btn-primary" onclick="closeSuccessModal(); location.href='#productos'">
+                        <i class="fas fa-cake-candles"></i> Ver Productos
+                    </button>
+                `;
+                document.getElementById('success-modal-overlay').style.display = 'block';
+                document.getElementById('success-modal').style.display = 'block';
+                return;
+            }
+            // Abrir modal de datos de contacto
+            document.getElementById('co-nombre').value = '';
+            document.getElementById('co-whatsapp').value = '';
+            document.getElementById('err-nombre').style.display = 'none';
+            document.getElementById('err-whatsapp').style.display = 'none';
+            document.getElementById('co-nombre').classList.remove('input-error');
+            document.getElementById('co-whatsapp').classList.remove('input-error');
+            document.getElementById('co-submit-btn').disabled = false;
+            document.getElementById('checkout-overlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+            // Solo permitir números en el campo whatsapp
+            document.getElementById('co-whatsapp').oninput = function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            };
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkout-overlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function normalizeWhatsapp(raw) {
+            const digits = raw.replace(/\D/g, '');
+            const last9 = digits.slice(-9);
+            return '+593' + last9;
+        }
+
+        function buildCaption(nombre) {
+            const total = cart.reduce((s, i) => s + i.precio * i.cantidad, 0);
+            let lines = [];
+            lines.push('👋 ¡Hola ' + nombre + '! Nos alegra mucho que hayas realizado tu pedido. 🎂');
+            lines.push('Te lo repetimos para asegurarnos de no perdernos ningún detalle:\n');
+            cart.forEach((item, idx) => {
+                const subtotal = (item.precio * item.cantidad).toFixed(2);
+                let line = `${idx + 1}. *${item.nombre}* x${item.cantidad} — $${subtotal}`;
+                const originalProduct = productos.find(p => p.id === item.id);
+                const hasCustomDesc = item.descripción && item.descripción !== (originalProduct ? originalProduct.descripción : '');
+                if (hasCustomDesc) line += `\n   ↳ ${item.descripción}`;
+                if (item.nota) line += `\n   📝 ${item.nota}`;
+                lines.push(line);
+            });
+            lines.push(`\n💰 *Total del pedido: $${total.toFixed(2)}*`);
+            lines.push('\nSi tienes algún detalle adicional, cambio de último momento o consulta, ¡no dudes en escribirnos! Estamos aquí para hacer tu pedido perfecto. 🧡');
+            return lines.join('\n');
+        }
+
+        async function submitCheckout() {
+            const nombre = document.getElementById('co-nombre').value.trim();
+            const waRaw = document.getElementById('co-whatsapp').value.trim();
+            let valid = true;
+
+            if (!nombre) {
+                document.getElementById('err-nombre').style.display = 'block';
+                document.getElementById('co-nombre').classList.add('input-error');
+                valid = false;
+            } else {
+                document.getElementById('err-nombre').style.display = 'none';
+                document.getElementById('co-nombre').classList.remove('input-error');
+            }
+
+            const digitsOnly = waRaw.replace(/\D/g, '');
+            if (digitsOnly.length < 9) {
+                document.getElementById('err-whatsapp').style.display = 'block';
+                document.getElementById('co-whatsapp').classList.add('input-error');
+                valid = false;
+            } else {
+                document.getElementById('err-whatsapp').style.display = 'none';
+                document.getElementById('co-whatsapp').classList.remove('input-error');
+            }
+
+            if (!valid) return;
+
+            const btn = document.getElementById('co-submit-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+
+            const whatsapp = normalizeWhatsapp(waRaw);
+            const caption = buildCaption(nombre);
+
+            try {
+                await fetch('https://lpn8nwebhook.luispintasolutions.com/webhook/envio_de_imagenes_sin_respuesta_pastelitos', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        whatsapp,
+                        url: 'https://lpsupabase.luispintasolutions.com/storage/v1/object/public/luispintapersonal/mi_espacio/Preparando%20pedido.png',
+                        caption
+                    })
+                });
+            } catch (_) {
+                // Silencioso — el pedido queda registrado de todas formas
+            }
+
+            closeCheckoutModal();
+            const pedidoCart = [...cart];
+            cart = [];
+            updateCart();
+
+            // Modal de confirmación
+            const total = pedidoCart.reduce((s, i) => s + i.precio * i.cantidad, 0);
+            document.getElementById('success-modal').classList.remove('has-panel');
+            document.getElementById('modal-right-col').style.display = 'none';
+            document.getElementById('modal-custom-panel').style.display = 'none';
+            document.getElementById('modal-icon').innerHTML = '<i class="fas fa-party-horn"></i>';
+            document.getElementById('modal-title').textContent = '¡Pedido confirmado! 🎉';
+            document.getElementById('modal-message').textContent = `Gracias ${nombre}! Te enviamos la confirmación por WhatsApp a ${whatsapp}. ¡Pronto tendrás tu delicioso pastel!`;
+            const leftTotalWrap = document.getElementById('modal-left-total-wrap');
+            if (leftTotalWrap) leftTotalWrap.style.display = 'none';
+            document.getElementById('modal-buttons').innerHTML = `
+                <button class="modal-btn modal-btn-primary" onclick="closeSuccessModal()">
+                    <i class="fas fa-heart"></i> ¡Gracias!
+                </button>
+            `;
+            document.getElementById('success-modal-overlay').style.display = 'block';
+            document.getElementById('success-modal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function continueShopping() {
+            toggleCart();
+            location.href = '#productos';
+        }
+        
+        // ===== CONSTRUCTOR DE PASTEL PERSONALIZADO (PCB) =====
+        let pcbState = {
+            personas: 10,
+            shape: 0, shapeName: 'Redondo',
+            cobertura: 0, coberturaNombre: 'Queso Crema',
+            deco: [],
+            escritura: 0, escrituraNombre: 'Normal',
+            caja: 0, cajaNombre: 'Caja estándar'
+        };
+
+        function pcbCalcTotal() {
+            let total = pcbState.personas * 1.20;
+            total += pcbState.shape + pcbState.cobertura;
+            const msg = document.getElementById('pcb-mensaje');
+            if (msg && msg.value.trim()) total += 1;
+            total += pcbState.escritura;
+            const tarjeta = document.getElementById('pcb-tarjeta');
+            if (tarjeta && tarjeta.checked) total += 0.5;
+            pcbState.deco.forEach(d => total += d.precio);
+            total += pcbState.caja;
+            return Math.round(total * 100) / 100;
+        }
+
+        function pcbUpdate() {
+            const personasEl = document.getElementById('pcb-personas');
+            pcbState.personas = parseInt(personasEl.value);
+            document.getElementById('pcb-personas-val').textContent = pcbState.personas;
+            const pNum = document.getElementById('pcb-personas-val');
+            pNum.style.transform = 'scale(1.2)';
+            setTimeout(() => pNum.style.transform = 'scale(1)', 150);
+
+            const tarjeta = document.getElementById('pcb-tarjeta');
+            const tarjetaMsg = document.getElementById('pcb-tarjeta-msg');
+            if (tarjeta && tarjetaMsg) tarjetaMsg.style.display = tarjeta.checked ? 'block' : 'none';
+
+            const total = pcbCalcTotal();
+            const totalEl = document.getElementById('pcb-total');
+            if (totalEl) {
+                totalEl.textContent = '$' + total.toFixed(2);
+                totalEl.style.transform = 'scale(1.15)';
+                setTimeout(() => totalEl.style.transform = 'scale(1)', 200);
+            }
+
+            const descEl = document.getElementById('pcb-summary-desc');
+            if (descEl) descEl.textContent = `${pcbState.personas} personas · ${pcbState.shapeName} · ${pcbState.coberturaNombre}`;
+
+            const extrasList = [];
+            if (pcbState.shape > 0) extrasList.push({label: 'Forma ' + pcbState.shapeName, precio: pcbState.shape});
+            if (pcbState.cobertura > 0) extrasList.push({label: pcbState.coberturaNombre, precio: pcbState.cobertura});
+            pcbState.deco.forEach(d => extrasList.push(d));
+            const msg = document.getElementById('pcb-mensaje');
+            if (msg && msg.value.trim()) extrasList.push({label: 'Msg: "' + msg.value.trim().substring(0, 28) + (msg.value.trim().length > 28 ? '…' : '') + '"', precio: 1});
+            if (pcbState.escritura > 0) extrasList.push({label: pcbState.escrituraNombre, precio: pcbState.escritura});
+            if (tarjeta && tarjeta.checked) extrasList.push({label: 'Tarjeta de felicitación', precio: 0.5});
+            if (pcbState.caja > 0) extrasList.push({label: pcbState.cajaNombre, precio: pcbState.caja});
+
+            const extrasEl = document.getElementById('pcb-extras-list');
+            if (extrasEl) extrasEl.innerHTML = extrasList.map(e => `<span class="pcb-extra-tag"><i class="fas fa-check" style="color:#FF6B35;font-size:9px"></i> ${e.label} <strong>+$${e.precio.toFixed(2)}</strong></span>`).join('');
+        }
+
+        function pcbSelectShape(el, precio) {
+            document.querySelectorAll('.pcb-shape-card').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            pcbState.shape = precio;
+            pcbState.shapeName = precio === 0 ? 'Redondo' : 'Cuadrado';
+            pcbUpdate();
+        }
+
+        function pcbSelectCob(el, precio) {
+            document.querySelectorAll('#pcb-cob-row .custom-chip').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            pcbState.cobertura = precio;
+            const names = {0: 'Queso Crema', 2: 'Buttercream', 3.5: 'Ganache Chocolate', 5: 'Fondant Blanco', 7: 'Fondant de Color'};
+            pcbState.coberturaNombre = names[precio] || 'Personalizada';
+            pcbUpdate();
+        }
+
+        function pcbToggleDeco(el, precio, label) {
+            el.classList.toggle('active');
+            if (el.classList.contains('active')) {
+                pcbState.deco.push({label, precio});
+            } else {
+                pcbState.deco = pcbState.deco.filter(d => d.label !== label);
+            }
+            pcbUpdate();
+        }
+
+        function pcbSelectEscritura(el, precio) {
+            document.querySelectorAll('#pcb-escritura-row .custom-chip').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            pcbState.escritura = precio;
+            const names = {0: 'Normal', 2: 'Caligrafía cursiva', 3: 'Lettering en relieve'};
+            pcbState.escrituraNombre = names[precio] || 'Normal';
+            pcbUpdate();
+        }
+
+        function pcbSelectCaja(el, precio) {
+            document.querySelectorAll('#pcb-caja-row .custom-chip').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            pcbState.caja = precio;
+            const names = {0: 'Caja estándar', 3: 'Caja premium', 6: 'Caja diseño personalizado', 10: 'Gift set exclusivo'};
+            pcbState.cajaNombre = names[precio] || 'Caja';
+            pcbUpdate();
+        }
+
+        function pcbAddToCart(event) {
+            const total = pcbCalcTotal();
+            const msg = document.getElementById('pcb-mensaje');
+            const nota = document.getElementById('pcb-nota');
+            const tarjeta = document.getElementById('pcb-tarjeta');
+            const tarjetaMsg = document.getElementById('pcb-tarjeta-msg');
+
+            const partes = [`${pcbState.personas} personas`, pcbState.shapeName, pcbState.coberturaNombre];
+            if (pcbState.deco.length) partes.push(pcbState.deco.map(d => d.label).join(', '));
+            if (msg && msg.value.trim()) partes.push('Msg: "' + msg.value.trim() + '"');
+            if (pcbState.escritura > 0) partes.push(pcbState.escrituraNombre);
+            if (tarjeta && tarjeta.checked) partes.push('Tarjeta' + (tarjetaMsg && tarjetaMsg.value.trim() ? ': "' + tarjetaMsg.value.trim() + '"' : ''));
+            if (pcbState.caja > 0) partes.push(pcbState.cajaNombre);
+
+            cart.push({
+                id: 'pcb_' + Date.now(),
+                nombre: 'Pastel Personalizado',
+                descripción: partes.join(' · '),
+                nota: nota ? nota.value.trim() : '',
+                precio: total,
+                cantidad: 1
+            });
+            updateCart();
+
+            // Reset
+            document.getElementById('pcb-personas').value = 10;
+            document.querySelectorAll('.pcb-shape-card').forEach((c, i) => c.classList.toggle('active', i === 0));
+            document.querySelectorAll('#pcb-cob-row .custom-chip').forEach((c, i) => c.classList.toggle('active', i === 0));
+            document.querySelectorAll('#pcb-deco-row .custom-chip').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('#pcb-escritura-row .custom-chip').forEach((c, i) => c.classList.toggle('active', i === 0));
+            document.querySelectorAll('#pcb-caja-row .custom-chip').forEach((c, i) => c.classList.toggle('active', i === 0));
+            if (msg) msg.value = '';
+            if (nota) nota.value = '';
+            if (tarjeta) tarjeta.checked = false;
+            if (tarjetaMsg) { tarjetaMsg.value = ''; tarjetaMsg.style.display = 'none'; }
+            pcbState = { personas: 10, shape: 0, shapeName: 'Redondo', cobertura: 0, coberturaNombre: 'Queso Crema', deco: [], escritura: 0, escrituraNombre: 'Normal', caja: 0, cajaNombre: 'Caja estándar' };
+            pcbUpdate();
+
+            showSuccessModal({id: 'custom'}, event, true);
+        }
+        
+        // WhatsApp FAB
+        const waMensajes = [
+            'Hola, Pastelitos S.A.! Quiero hacer un pedido 🎂',
+            'Hola! Estuve revisando su página y algo me llamó la atención, quisiera más información 😊',
+            'Buenos días, Pastelitos S.A.! Me gustaría pedir un pastel de zanahoria 🥕',
+            'Hola! Vi sus productos en línea y me encantaron, ¿cómo puedo realizar un pedido?',
+            'Hola Pastelitos! Quiero encargar un pastel para un evento especial 🎉',
+            'Buenos días! Necesito información sobre sus pasteles y precios por favor',
+            'Hola! Me interesa el Pack de 12 pastelitos, ¿tienen disponibilidad?',
+            'Hola Pastelitos S.A.! Quiero un pastel Royal Class para una celebración 👑',
+            'Hola! ¿Hacen entregas a domicilio? Me gustaría hacer un pedido 🛵',
+            'Hola! Acabo de ver su tienda en línea y quiero consultar sobre personalización de pasteles ✨'
+        ];
+        function openWhatsApp() {
+            const msg = waMensajes[Math.floor(Math.random() * waMensajes.length)];
+            window.open('https://wa.me/593963242201?text=' + encodeURIComponent(msg), '_blank');
+        }
+
+        renderProducts();
+        pcbUpdate(); // Inicializar total del constructor de pastel
+
+        // Menú hamburguesa
+        function toggleMobileMenu() {
+            const btn = document.getElementById('hamburger-btn');
+            const menu = document.getElementById('mobile-menu');
+            btn.classList.toggle('open');
+            menu.classList.toggle('open');
+        }
+        function closeMobileMenu() {
+            document.getElementById('hamburger-btn').classList.remove('open');
+            document.getElementById('mobile-menu').classList.remove('open');
+        }
+
+        // Detectar móvil y mostrar botón carrito móvil
+        function applyDeviceLayout() {
+            const isMobile = window.innerWidth <= 768;
+            document.getElementById('cart-btn-mobile').style.display = isMobile ? 'flex' : 'none';
+        }
+        applyDeviceLayout();
+        window.addEventListener('resize', applyDeviceLayout);
+
+        // Sincronizar contador carrito móvil
+        const _origUpdateCart = updateCart;
+        updateCart = function() {
+            _origUpdateCart();
+            const total = cart.reduce((sum, item) => sum + item.cantidad, 0);
+            document.getElementById('cart-count-mobile').textContent = total;
+        };
+    </script>
+</body>
+</html>
