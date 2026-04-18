@@ -1949,7 +1949,23 @@
                 <div class="pcb-slider-marks"><span>6</span><span>10</span><span>15</span><span>20</span><span>30</span><span>40</span></div>
             </div>
 
-            <!-- Paso 2: Forma -->
+            <!-- Paso 2: Endulzado con Stevia -->
+            <div class="pcb-block">
+                <div class="pcb-block-header">
+                    <span class="pcb-step-num">2</span>
+                    <span class="pcb-block-title"><i class="fas fa-leaf"></i> ¿Endulzado con Stevia? <span style="font-size:11px;color:#999;font-weight:400">(endulzante natural)</span></span>
+                </div>
+                <div class="pcb-toggle-row">
+                    <label class="pcb-toggle">
+                        <input type="checkbox" id="pcb-stevia" onchange="pcbUpdate()">
+                        <span class="pcb-toggle-slider"></span>
+                        <span class="pcb-toggle-label">Sustituir azúcar por Stevia <span id="pcb-stevia-price" style="font-size:12px;color:#FF6B35;font-weight:700">+$1.08</span></span>
+                    </label>
+                </div>
+                <div style="font-size:10px;color:#888;margin-top:6px">Apto para diabéticos y dietas bajas en calorías. El precio varía según el tamaño del pastel.</div>
+            </div>
+
+            <!-- Paso 3: Forma -->
             <div class="pcb-block">
                 <div class="pcb-block-header">
                     <span class="pcb-step-num">2</span>
@@ -1969,43 +1985,43 @@
                 </div>
             </div>
 
-            <!-- Paso 3: Cobertura -->
+            <!-- Paso 4: Cobertura -->
             <div class="pcb-block">
                 <div class="pcb-block-header">
-                    <span class="pcb-step-num">3</span>
+                    <span class="pcb-step-num">4</span>
                     <span class="pcb-block-title"><i class="fas fa-layer-group"></i> Cobertura</span>
                 </div>
                 <div class="custom-chip-row" id="pcb-cob-row">
                     <span class="custom-chip pack active" onclick="pcbSelectCob(this, 0)"><i class="fas fa-cheese"></i> Queso Crema <span class="custom-price-tag">Incluido</span></span>
-                    <span class="custom-chip pack" onclick="pcbSelectCob(this, 2)"><i class="fas fa-swirl"></i> Buttercream <span class="custom-price-tag">+$2.00</span></span>
-                    <span class="custom-chip pack" onclick="pcbSelectCob(this, 3.5)"><i class="fas fa-droplet"></i> Ganache Chocolate <span class="custom-price-tag">+$3.50</span></span>
-                    <span class="custom-chip pack" onclick="pcbSelectCob(this, 5)"><i class="fas fa-circle"></i> Fondant Blanco <span class="custom-price-tag">+$5.00</span></span>
-                    <span class="custom-chip pack" onclick="pcbSelectCob(this, 7)"><i class="fas fa-palette"></i> Fondant de Color <span class="custom-price-tag">+$7.00</span></span>
+                    <span class="custom-chip pack" data-base-price="2" onclick="pcbSelectCob(this, 2)"><i class="fas fa-swirl"></i> Buttercream <span class="custom-price-tag">+$2.00</span></span>
+                    <span class="custom-chip pack" data-base-price="3.5" onclick="pcbSelectCob(this, 3.5)"><i class="fas fa-droplet"></i> Ganache Chocolate <span class="custom-price-tag">+$3.50</span></span>
+                    <span class="custom-chip pack" data-base-price="5" onclick="pcbSelectCob(this, 5)"><i class="fas fa-circle"></i> Fondant Blanco <span class="custom-price-tag">+$5.00</span></span>
+                    <span class="custom-chip pack" data-base-price="7" onclick="pcbSelectCob(this, 7)"><i class="fas fa-palette"></i> Fondant de Color <span class="custom-price-tag">+$7.00</span></span>
                 </div>
             </div>
 
-            <!-- Paso 4: Decoración -->
-            <div class="pcb-block">
-                <div class="pcb-block-header">
-                    <span class="pcb-step-num">4</span>
-                    <span class="pcb-block-title"><i class="fas fa-star"></i> Decoración <span style="font-size:11px;color:#999;font-weight:400">(selección múltiple)</span></span>
-                </div>
-                <div class="custom-chip-row" id="pcb-deco-row">
-                    <span class="custom-chip add" onclick="pcbToggleDeco(this, 3, 'Flores de fondant')"><i class="fas fa-leaf"></i> Flores de fondant <span class="custom-price-tag">+$3.00</span></span>
-                    <span class="custom-chip add" onclick="pcbToggleDeco(this, 2.5, 'Frutos secos premium')"><i class="fas fa-seedling"></i> Frutos secos premium <span class="custom-price-tag">+$2.50</span></span>
-                    <span class="custom-chip add" onclick="pcbToggleDeco(this, 1.5, 'Chispas de chocolate')"><i class="fas fa-cookie"></i> Chispas de chocolate <span class="custom-price-tag">+$1.50</span></span>
-                    <span class="custom-chip add" onclick="pcbToggleDeco(this, 4.5, 'Figuras en fondant')"><i class="fas fa-shapes"></i> Figuras en fondant <span class="custom-price-tag">+$4.50</span></span>
-                    <span class="custom-chip add" onclick="pcbToggleDeco(this, 6, 'Hoja de oro comestible')"><i class="fas fa-crown"></i> Hoja de oro comestible <span class="custom-price-tag">+$6.00</span></span>
-                    <span class="custom-chip add" onclick="pcbToggleDeco(this, 0.5, 'Velas de cumpleaños')"><i class="fas fa-fire"></i> Velas de cumpleaños <span class="custom-price-tag">+$0.50</span></span>
-                    <span class="custom-chip add" onclick="pcbToggleDeco(this, 2, 'Moño decorativo')"><i class="fas fa-ribbon"></i> Moño decorativo <span class="custom-price-tag">+$2.00</span></span>
-                    <span class="custom-chip add" onclick="pcbToggleDeco(this, 1.5, 'Lazo de regalo')"><i class="fas fa-gift"></i> Lazo de regalo <span class="custom-price-tag">+$1.50</span></span>
-                </div>
-            </div>
-
-            <!-- Paso 5: Mensaje en el pastel -->
+            <!-- Paso 5: Decoración -->
             <div class="pcb-block">
                 <div class="pcb-block-header">
                     <span class="pcb-step-num">5</span>
+                    <span class="pcb-block-title"><i class="fas fa-star"></i> Decoración <span style="font-size:11px;color:#999;font-weight:400">(selección múltiple)</span></span>
+                </div>
+                <div class="custom-chip-row" id="pcb-deco-row">
+                    <span class="custom-chip add" data-base-price="3" onclick="pcbToggleDeco(this, 3, 'Flores de fondant')"><i class="fas fa-leaf"></i> Flores de fondant <span class="custom-price-tag">+$3.00</span></span>
+                    <span class="custom-chip add" data-base-price="2.5" onclick="pcbToggleDeco(this, 2.5, 'Frutos secos premium')"><i class="fas fa-seedling"></i> Frutos secos premium <span class="custom-price-tag">+$2.50</span></span>
+                    <span class="custom-chip add" data-base-price="1.5" onclick="pcbToggleDeco(this, 1.5, 'Chispas de chocolate')"><i class="fas fa-cookie"></i> Chispas de chocolate <span class="custom-price-tag">+$1.50</span></span>
+                    <span class="custom-chip add" data-base-price="4.5" onclick="pcbToggleDeco(this, 4.5, 'Figuras en fondant')"><i class="fas fa-shapes"></i> Figuras en fondant <span class="custom-price-tag">+$4.50</span></span>
+                    <span class="custom-chip add" data-base-price="6" onclick="pcbToggleDeco(this, 6, 'Hoja de oro comestible')"><i class="fas fa-crown"></i> Hoja de oro comestible <span class="custom-price-tag">+$6.00</span></span>
+                    <span class="custom-chip add" data-base-price="0.5" onclick="pcbToggleDeco(this, 0.5, 'Velas de cumpleaños')"><i class="fas fa-fire"></i> Velas de cumpleaños <span class="custom-price-tag">+$0.50</span></span>
+                    <span class="custom-chip add" data-base-price="2" onclick="pcbToggleDeco(this, 2, 'Moño decorativo')"><i class="fas fa-ribbon"></i> Moño decorativo <span class="custom-price-tag">+$2.00</span></span>
+                    <span class="custom-chip add" data-base-price="1.5" onclick="pcbToggleDeco(this, 1.5, 'Lazo de regalo')"><i class="fas fa-gift"></i> Lazo de regalo <span class="custom-price-tag">+$1.50</span></span>
+                </div>
+            </div>
+
+            <!-- Paso 6: Mensaje en el pastel -->
+            <div class="pcb-block">
+                <div class="pcb-block-header">
+                    <span class="pcb-step-num">6</span>
                     <span class="pcb-block-title"><i class="fas fa-pen-nib"></i> Mensaje en el pastel <span style="font-size:11px;color:#999;font-weight:400">(+$1.00 si escribes algo)</span></span>
                 </div>
                 <input type="text" class="pcb-text-input" id="pcb-mensaje" placeholder='Ej: "Feliz Cumpleaños María! ✨"' oninput="pcbUpdate()" maxlength="60">
@@ -2019,10 +2035,10 @@
                 </div>
             </div>
 
-            <!-- Paso 6: Tarjeta -->
+            <!-- Paso 7: Tarjeta -->
             <div class="pcb-block">
                 <div class="pcb-block-header">
-                    <span class="pcb-step-num">6</span>
+                    <span class="pcb-step-num">7</span>
                     <span class="pcb-block-title"><i class="fas fa-envelope-open-text"></i> Tarjeta de felicitación</span>
                 </div>
                 <div class="pcb-toggle-row">
@@ -2035,10 +2051,10 @@
                 <input type="text" class="pcb-text-input" id="pcb-tarjeta-msg" placeholder="Mensaje para la tarjeta..." maxlength="100" style="display:none;margin-top:10px" oninput="pcbUpdate()">
             </div>
 
-            <!-- Paso 7: Caja / Empaque -->
+            <!-- Paso 8: Caja / Empaque -->
             <div class="pcb-block">
                 <div class="pcb-block-header">
-                    <span class="pcb-step-num">7</span>
+                    <span class="pcb-step-num">8</span>
                     <span class="pcb-block-title"><i class="fas fa-box"></i> Empaque / Caja</span>
                 </div>
                 <div class="custom-chip-row" id="pcb-caja-row">
@@ -2188,6 +2204,7 @@
                     { id: 'sin_azucar', label: 'Sin azúcar (versión fit)', precio: 0 },
                 ],
                 agregar: [
+                    { id: 'stevia_1', label: 'Endulzado con Stevia', precio: 0.20 },
                     { id: 'extra_cobertura', label: 'Extra cobertura', precio: 0.20 },
                     { id: 'nueces', label: 'Nueces', precio: 0.30 },
                     { id: 'chispas', label: 'Chispas de chocolate', precio: 0.25 },
@@ -2205,6 +2222,7 @@
                     { id: 'sin_cobertura_pack', label: 'Sin cobertura (todo el pack)', precio: -0.80 },
                 ],
                 agregar: [
+                    { id: 'stevia_pack', label: 'Endulzado con Stevia (todo el pack)', precio: 1.50 },
                     { id: 'mix_coberturas', label: 'Mix coberturas variadas', precio: 1.00 },
                     { id: 'pack_nueces', label: 'Con nueces (todo el pack)', precio: 2.00 },
                     { id: 'pack_chispas', label: 'Con chispas chocolate', precio: 1.50 },
@@ -2225,6 +2243,7 @@
                     { id: 'sin_nuez_g', label: 'Sin nueces (alergia)', precio: 0 },
                 ],
                 agregar: [
+                    { id: 'stevia_g', label: 'Endulzado con Stevia', precio: 1.00 },
                     { id: 'deco_flores', label: 'Flores de fondant', precio: 3.00 },
                     { id: 'frutos_secos_g', label: 'Frutos secos premium', precio: 2.50 },
                     { id: 'mensaje_g', label: 'Mensaje escrito en pastel', precio: 1.00 },
@@ -2247,6 +2266,7 @@
                     { id: 'sin_cob_rc', label: 'Sin cobertura de queso', precio: -1.50 },
                 ],
                 agregar: [
+                    { id: 'stevia_rc', label: 'Endulzado con Stevia', precio: 1.50 },
                     { id: 'flores_rc', label: 'Flores de fondant', precio: 3.00 },
                     { id: 'hoja_oro', label: 'Hoja de oro comestible', precio: 5.00 },
                     { id: 'mensaje_rc', label: 'Mensaje escrito en pastel', precio: 1.00 },
@@ -2776,21 +2796,33 @@
         let pcbState = {
             personas: 10,
             shape: 0, shapeName: 'Redondo',
-            cobertura: 0, coberturaNombre: 'Queso Crema',
+            cobertura: 0, coberturaNombre: 'Queso Crema', coberturaBase: 0,
             deco: [],
             escritura: 0, escrituraNombre: 'Normal',
             caja: 0, cajaNombre: 'Caja estándar'
         };
 
+        function pcbScalePrice(base) {
+            if (base === 0) return 0;
+            const p = pcbState.personas;
+            const scale = p <= 15
+                ? 0.5 + 0.5 * (p - 6) / 9
+                : 1.0 + (p - 15) / 25;
+            return Math.round(base * scale * 100) / 100;
+        }
+
         function pcbCalcTotal() {
             let total = pcbState.personas * 1.20;
-            total += pcbState.shape + pcbState.cobertura;
+            total += pcbState.shape;
+            total += pcbScalePrice(pcbState.coberturaBase || 0);
             const msg = document.getElementById('pcb-mensaje');
             if (msg && msg.value.trim()) total += 1;
             total += pcbState.escritura;
             const tarjeta = document.getElementById('pcb-tarjeta');
             if (tarjeta && tarjeta.checked) total += 0.5;
-            pcbState.deco.forEach(d => total += d.precio);
+            const steviaEl = document.getElementById('pcb-stevia');
+            if (steviaEl && steviaEl.checked) total += pcbScalePrice(1.5);
+            pcbState.deco.forEach(d => total += pcbScalePrice(d.basePrecio));
             total += pcbState.caja;
             return Math.round(total * 100) / 100;
         }
@@ -2818,10 +2850,26 @@
             const descEl = document.getElementById('pcb-summary-desc');
             if (descEl) descEl.textContent = `${pcbState.personas} personas · ${pcbState.shapeName} · ${pcbState.coberturaNombre}`;
 
+            // Actualizar precios escalados en chips de cobertura y decoración
+            document.querySelectorAll('#pcb-cob-row .custom-chip[data-base-price]').forEach(chip => {
+                const base = parseFloat(chip.dataset.basePrice);
+                const tag = chip.querySelector('.custom-price-tag');
+                if (tag) tag.textContent = '+$' + pcbScalePrice(base).toFixed(2);
+            });
+            document.querySelectorAll('#pcb-deco-row .custom-chip[data-base-price]').forEach(chip => {
+                const base = parseFloat(chip.dataset.basePrice);
+                const tag = chip.querySelector('.custom-price-tag');
+                if (tag) tag.textContent = '+$' + pcbScalePrice(base).toFixed(2);
+            });
+            const steviaPriceTag = document.getElementById('pcb-stevia-price');
+            if (steviaPriceTag) steviaPriceTag.textContent = '+$' + pcbScalePrice(1.5).toFixed(2);
+
             const extrasList = [];
             if (pcbState.shape > 0) extrasList.push({label: 'Forma ' + pcbState.shapeName, precio: pcbState.shape});
-            if (pcbState.cobertura > 0) extrasList.push({label: pcbState.coberturaNombre, precio: pcbState.cobertura});
-            pcbState.deco.forEach(d => extrasList.push(d));
+            if (pcbState.coberturaBase > 0) extrasList.push({label: pcbState.coberturaNombre, precio: pcbScalePrice(pcbState.coberturaBase)});
+            const steviaEl = document.getElementById('pcb-stevia');
+            if (steviaEl && steviaEl.checked) extrasList.push({label: '🌿 Endulzado con Stevia', precio: pcbScalePrice(1.5)});
+            pcbState.deco.forEach(d => extrasList.push({label: d.label, precio: pcbScalePrice(d.basePrecio)}));
             const msg = document.getElementById('pcb-mensaje');
             if (msg && msg.value.trim()) extrasList.push({label: 'Msg: "' + msg.value.trim().substring(0, 28) + (msg.value.trim().length > 28 ? '…' : '') + '"', precio: 1});
             if (pcbState.escritura > 0) extrasList.push({label: pcbState.escrituraNombre, precio: pcbState.escritura});
@@ -2840,19 +2888,20 @@
             pcbUpdate();
         }
 
-        function pcbSelectCob(el, precio) {
+        function pcbSelectCob(el, precioBase) {
             document.querySelectorAll('#pcb-cob-row .custom-chip').forEach(c => c.classList.remove('active'));
             el.classList.add('active');
-            pcbState.cobertura = precio;
+            pcbState.coberturaBase = precioBase;
+            pcbState.cobertura = precioBase;
             const names = {0: 'Queso Crema', 2: 'Buttercream', 3.5: 'Ganache Chocolate', 5: 'Fondant Blanco', 7: 'Fondant de Color'};
-            pcbState.coberturaNombre = names[precio] || 'Personalizada';
+            pcbState.coberturaNombre = names[precioBase] || 'Personalizada';
             pcbUpdate();
         }
 
-        function pcbToggleDeco(el, precio, label) {
+        function pcbToggleDeco(el, precioBase, label) {
             el.classList.toggle('active');
             if (el.classList.contains('active')) {
-                pcbState.deco.push({label, precio});
+                pcbState.deco.push({label, basePrecio: precioBase});
             } else {
                 pcbState.deco = pcbState.deco.filter(d => d.label !== label);
             }
@@ -2885,6 +2934,8 @@
             const tarjetaMsg = document.getElementById('pcb-tarjeta-msg');
 
             const partes = [`${pcbState.personas} personas`, pcbState.shapeName, pcbState.coberturaNombre];
+            const steviaCartEl = document.getElementById('pcb-stevia');
+            if (steviaCartEl && steviaCartEl.checked) partes.push('Endulzado con Stevia');
             if (pcbState.deco.length) partes.push(pcbState.deco.map(d => d.label).join(', '));
             if (msg && msg.value.trim()) partes.push('Msg: "' + msg.value.trim() + '"');
             if (pcbState.escritura > 0) partes.push(pcbState.escrituraNombre);
